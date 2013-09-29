@@ -231,8 +231,8 @@ namespace LocalServer.WebUI.Controllers
                     i++;
                     Product p = _productRepo.Products.FirstOrDefault(pd => pd.barcode == transactionDetail.barcode);
                     transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
-                    transactionDetail.cost = (decimal)(((double)transactionDetail.cost)*((100-p.discountPercentage/100.0)));
-                    if (transactionDetail.unitSold > p.bundleUnit)
+                    transactionDetail.cost = (decimal)(((double)transactionDetail.cost)*((100-p.discountPercentage)/100.0));
+                    if (transactionDetail.unitSold >= p.bundleUnit && p.bundleUnit > 0)
                         transactionDetail.cost = (decimal)(0.9 * (double)transactionDetail.cost);
                     
                     p.currentStock -= transactionDetail.unitSold;
@@ -432,7 +432,16 @@ namespace LocalServer.WebUI.Controllers
 
             public string uploadAllTransactions(){
 
-
+                sendSummary("01/09/2013");
+                sendSummary("02/09/2013");
+                sendSummary("03/09/2013");
+                sendSummary("04/09/2013");
+                sendSummary("05/09/2013");
+                sendSummary("06/09/2013");
+                sendSummary("07/09/2013");
+                sendSummary("08/09/2013");
+                sendSummary("09/09/2013");
+                sendSummary("10/09/2013");
                 sendSummary("11/09/2013");
                 sendSummary("12/09/2013");
                 sendSummary("13/09/2013");
@@ -452,6 +461,7 @@ namespace LocalServer.WebUI.Controllers
                 sendSummary("27/09/2013");
                 sendSummary("28/09/2013");
                 sendSummary("29/09/2013");
+                sendSummary("30/09/2013");
 
                 return "SUCCESS";
         }

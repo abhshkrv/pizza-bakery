@@ -352,7 +352,7 @@ namespace LocalServer.WebUI.Controllers
         {
             HttpWebRequest httpWReq =
         (HttpWebRequest)WebRequest.Create("http://hqserver.azurewebsites.net/shop/uploadOutletInventory");
-            httpWReq.Timeout = 300000;
+            httpWReq.Timeout = 30000000;
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
             postData += content;
