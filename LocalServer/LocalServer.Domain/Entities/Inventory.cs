@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Local.Domain.Entities
 {
-    public class OutletInventory
+    public class Inventory
     {
         [Key, Column(Order = 0)]
         public int outletID { get; set; }
@@ -18,3 +18,4 @@ namespace Local.Domain.Entities
         public int minimumStock { get; set; }
     }
 }
+/*

@@ -7,15 +7,12 @@ using System.Text;
 
 namespace Local.Domain.Entities
 {
-    public class OutletTransactionDetail
+    public class Transaction
     {
         [Key, Column(Order = 0)]
-        public int transactionID { get; set; }
+        public string transactionID { get; set; }
+        public DateTime date { get; set; }
         [Key, Column(Order = 1)]
-        public int outletID { get; set; }
-        [Key, Column(Order = 2)]
-        public int barcode { get; set; }
-        public int unitSold { get; set; }
-        public float cost { get; set; }
+        public int cashierID { get; set; }
     }
 }
