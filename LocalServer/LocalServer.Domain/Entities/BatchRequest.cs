@@ -5,9 +5,10 @@ using System.Text;
 
 namespace LocalServer.Domain.Entities
 {
-    public class PriceDisplay
+    public class BatchRequest
     {
-        public int cashRegisterID { get; set; }
+        public int batchRequestID { get; set; }
+        public DateTime timeStamp { get; set; }
         public byte status { get; set; }
     }
 }

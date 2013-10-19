@@ -8,14 +8,14 @@ using System.Web.Mvc;
 
 namespace Local.Domain.Entities
 {
-    public class Product //or inventory?
+    public class Product
     {
         [HiddenInput(DisplayValue = false)]
         public int productID { get; set; }
-//        public string productName { get; set; }
+        public string productName { get; set; }
         public string barcode { get; set; }
-//        public int categoryID { get; set; }
-//        public int manufacturerID { get; set; }
+        public int categoryID { get; set; }
+        public int manufacturerID { get; set; }
         public float sellingPrice { get; set; }
         public float maxPrice { get; set; }
         public int currentStock { get; set; }

@@ -9,6 +9,5 @@ namespace LocalServer.Domain.Entities
     {
         public int priceDisplayID { get; set; }
         public byte status { get; set; }
-
     }
 }
