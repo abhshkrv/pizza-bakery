@@ -12,7 +12,7 @@ namespace LocalServer.Domain.Entities
         [Key, Column(Order = 0)]
         public int transactionID { get; set; }
         [Key, Column(Order = 2)]
-        public int barcode { get; set; }
+        public string barcode { get; set; }
         public int unitSold { get; set; }
         public float cost { get; set; }
     }

@@ -20,7 +20,7 @@ namespace LocalServer.Domain.Concrete
         {
             if (context.Entry(Transaction).State == EntityState.Detached)
             {
-                context.Transactions.Attach(Transaction);
+                context.Transactions.Add(Transaction);
             }
 
             context.Entry(Transaction).State = EntityState.Modified;
