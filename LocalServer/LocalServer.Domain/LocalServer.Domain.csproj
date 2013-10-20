@@ -53,12 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BatchRequest.cs" />
+    <Compile Include="Entities\BatchRequestDetail.cs" />
+    <Compile Include="Entities\CashRegister.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Inventory.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
-    <Compile Include="Entities\OutletInventory.cs" />
-    <Compile Include="Entities\OutletTransaction.cs" />
-    <Compile Include="Entities\OutletTransactionDetail.cs" />
-    <Compile Include="Entities\Products.cs" />
+    <Compile Include="Entities\PriceDisplay.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Transaction.cs" />
+    <Compile Include="Entities\TransactionDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

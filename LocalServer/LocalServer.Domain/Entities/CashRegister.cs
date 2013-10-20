@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LocalServer.Domain.Entities
 {
-    public class PriceDisplay
+    public class CashRegister
     {
         public int cashRegisterID { get; set; }
         public byte status { get; set; }
