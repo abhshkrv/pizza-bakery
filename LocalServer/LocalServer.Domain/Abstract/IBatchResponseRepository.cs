@@ -7,10 +7,10 @@ using System.Text;
 
 namespace LocalServer.Domain.Abstract
 {
-    public interface IBatchResponseRepository
+    public interface IBatchRequestRepository
     {
         IQueryable<BatchRequest> BatchRequests { get; }
-        void saveBatchResponse(BatchRequest batchRequest);
-        void deleteBatchResponse(BatchRequest batchRequest);
+        void saveBatchRequest(BatchRequest batchRequest);
+        void deleteBatchRequest(BatchRequest batchRequest);
     }
 }

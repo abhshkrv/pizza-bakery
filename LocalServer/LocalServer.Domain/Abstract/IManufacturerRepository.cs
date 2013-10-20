@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace HQServer.Domain.Abstract
+namespace LocalServer.Domain.Abstract
 {
     public interface IManufacturerRepository
     {

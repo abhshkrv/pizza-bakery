@@ -10,7 +10,7 @@ namespace LocalServer.Domain.Abstract
     public interface IBatchRequestDetailRepository
     {
         IQueryable<BatchRequestDetail> BatchRequestDetails { get; }
-        void saveBatchResponseDetail(BatchRequestDetail batchRequestDetail);
-        void deleteBatchResponseDetail(BatchRequestDetail batchRequestDetail);
+        void saveBatchRequestDetail(BatchRequestDetail batchRequestDetail);
+        void deleteBatchRequestDetail(BatchRequestDetail batchRequestDetail);
     }
 }

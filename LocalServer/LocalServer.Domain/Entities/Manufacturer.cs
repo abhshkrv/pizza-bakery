@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Local.Domain.Entities
+namespace LocalServer.Domain.Entities
 {
     public class Manufacturer
     {
