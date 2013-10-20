@@ -1,16 +1,16 @@
-﻿using HQServer.Domain.Entities;
+﻿using LocalServer.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 
-namespace HQServer.Domain.Abstract
+namespace LocalServer.Domain.Abstract
 {
     public interface IBatchResponseRepository
     {
-        IQueryable<BatchResponse> BatchResponses { get; }
-        void saveBatchResponse(BatchResponse batchResponse);
-        void deleteBatchResponse(BatchResponse batchResponse);
+        IQueryable<BatchRequest> BatchRequests { get; }
+        void saveBatchResponse(BatchRequest batchRequest);
+        void deleteBatchResponse(BatchRequest batchRequest);
     }
 }

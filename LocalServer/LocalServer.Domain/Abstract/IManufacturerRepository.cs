@@ -1,4 +1,4 @@
-﻿using HQServer.Domain.Entities;
+﻿using LocalServer.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

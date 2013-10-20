@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 
-namespace Local.Domain.Entities
+namespace LocalServer.Domain.Entities
 {
     public class Product
     {
