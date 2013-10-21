@@ -78,9 +78,18 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
+    <Compile Include="Migrations\201310202051557_InitialCreate.cs" />
+    <Compile Include="Migrations\201310202051557_InitialCreate.Designer.cs">
+      <DependentUpon>201310202051557_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201310202051557_InitialCreate.resx">
+      <DependentUpon>201310202051557_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

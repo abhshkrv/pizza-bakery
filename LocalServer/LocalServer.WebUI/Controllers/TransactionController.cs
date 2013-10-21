@@ -75,7 +75,7 @@ namespace LocalServer.WebUI.Controllers
                 string[] tokens = i.Split(':');
                 Transaction transaction = new Transaction();
                 TransactionDetail transactionDetail = new TransactionDetail();
-                transaction.transactionID = Int32.Parse(tokens[0]);
+                transaction.transactionID = 0;// Int32.Parse(tokens[0]);
                 transaction.cashierID = Int32.Parse(tokens[1]);
                 transaction.date = DateTime.Parse(tokens[5]);
 
@@ -88,6 +88,7 @@ namespace LocalServer.WebUI.Controllers
                 transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
 
                 _transactionRepo.saveTransaction(transaction);
+
                 _transactionDetailRepo.saveTransactionDetail(transactionDetail);
             }
             return true;
