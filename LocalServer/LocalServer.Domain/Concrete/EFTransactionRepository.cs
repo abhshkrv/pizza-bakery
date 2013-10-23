@@ -23,7 +23,7 @@ namespace LocalServer.Domain.Concrete
                 context.Transactions.Add(Transaction);
             }
 
-            context.Entry(Transaction).State = EntityState.Modified;
+           // context.Entry(Transaction).State = EntityState.Modified;
             context.SaveChanges();
         }
 

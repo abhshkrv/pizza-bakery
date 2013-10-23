@@ -70,26 +70,47 @@ namespace LocalServer.WebUI.Controllers
             //emptydatabase();
             string[] lines = System.IO.File.ReadAllLines(Server.MapPath(@"~/Content/TransactionData/" + fileName));
             List<string> inputList = lines.Cast<string>().ToList();
+            string id = "";
             foreach (string i in inputList)
             {
                 string[] tokens = i.Split(':');
-                Transaction transaction = new Transaction();
-                TransactionDetail transactionDetail = new TransactionDetail();
-                transaction.transactionID = 0;// Int32.Parse(tokens[0]);
-                transaction.cashierID = Int32.Parse(tokens[1]);
-                transaction.date = DateTime.Parse(tokens[5]);
 
-                transactionDetail.transactionID = transaction.transactionID;
-                transactionDetail.barcode = tokens[3];
-                transactionDetail.unitSold = Int32.Parse(tokens[4]);
+                if (tokens[0] != id)
+                {
+                    Transaction transaction = new Transaction();
+                    TransactionDetail transactionDetail = new TransactionDetail();
+                    transaction.transactionID = Int32.Parse(tokens[0]);
+                    transaction.cashierID = Int32.Parse(tokens[1]);
+                    transaction.date = DateTime.Parse(tokens[5]);
 
-                String barcode = tokens[3];
-                Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
-                transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
+                    transactionDetail.transactionID = transaction.transactionID;
+                    transactionDetail.barcode = tokens[3];
+                    transactionDetail.unitSold = Int32.Parse(tokens[4]);
 
-                _transactionRepo.saveTransaction(transaction);
+                    String barcode = tokens[3];
+                    Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
+                    transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
 
-                _transactionDetailRepo.saveTransactionDetail(transactionDetail);
+                    _transactionRepo.saveTransaction(transaction);
+
+                    _transactionDetailRepo.saveTransactionDetail(transactionDetail);
+
+                    id = tokens[0];
+                }
+                else {
+                    TransactionDetail transactionDetail = new TransactionDetail();
+
+                    transactionDetail.transactionID = Int32.Parse(id);
+                    transactionDetail.barcode = tokens[3];
+                    transactionDetail.unitSold = Int32.Parse(tokens[4]);
+
+                    String barcode = tokens[3];
+                    Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
+                    transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
+
+                    _transactionDetailRepo.saveTransactionDetail(transactionDetail);
+
+                }
             }
             return true;
         }
