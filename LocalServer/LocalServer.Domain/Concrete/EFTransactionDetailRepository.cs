@@ -2,6 +2,7 @@
 using LocalServer.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -15,9 +16,25 @@ namespace LocalServer.Domain.Concrete
             get { return context.TransactionDetails; }
         }
 
-        public void saveTransactionDetail(TransactionDetail TransactionDetail)
+        public void saveTransactionDetail(TransactionDetail transactionDetail)
         {
+            if (context.Entry(transactionDetail).State == EntityState.Detached)
+            {
+                context.TransactionDetails.Add(transactionDetail);
+            }
 
+            // context.Entry(Transaction).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public void quickSaveTransactionDetail(TransactionDetail transactionDetail)
+        {
+            context.TransactionDetails.Add(transactionDetail);
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
         }
 
         public void deleteTransactionDetail(TransactionDetail TransactionDetail)

@@ -27,6 +27,16 @@ namespace LocalServer.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void quickSaveTransaction(Transaction Transaction)
+        {
+            context.Transactions.Add(Transaction);
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
+        }
+
         public void deleteTransaction(Transaction Transaction)
         {
             context.Transactions.Remove(Transaction);

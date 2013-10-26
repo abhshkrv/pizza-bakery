@@ -78,9 +78,9 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
-    <Compile Include="Migrations\201310220726263_fixer.cs" />
-    <Compile Include="Migrations\201310220726263_fixer.Designer.cs">
-      <DependentUpon>201310220726263_fixer.cs</DependentUpon>
+    <Compile Include="Migrations\201310261110285_init2.cs" />
+    <Compile Include="Migrations\201310261110285_init2.Designer.cs">
+      <DependentUpon>201310261110285_init2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +90,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310220726263_fixer.resx">
-      <DependentUpon>201310220726263_fixer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201310261110285_init2.resx">
+      <DependentUpon>201310261110285_init2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

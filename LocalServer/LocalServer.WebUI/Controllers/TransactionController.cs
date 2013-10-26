@@ -67,7 +67,9 @@ namespace LocalServer.WebUI.Controllers
 
         private bool parseFile(string fileName)
         {
-            //emptydatabase();
+            var productDictionary = _productRepo.Products.Select(p => new { p.barcode, p.sellingPrice }).AsEnumerable().ToDictionary(kvp => kvp.barcode, kvp => kvp.sellingPrice);
+           
+
             string[] lines = System.IO.File.ReadAllLines(Server.MapPath(@"~/Content/TransactionData/" + fileName));
             List<string> inputList = lines.Cast<string>().ToList();
             string id = "";
@@ -91,9 +93,9 @@ namespace LocalServer.WebUI.Controllers
                     Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
                     transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
 
-                    _transactionRepo.saveTransaction(transaction);
+                    _transactionRepo.quickSaveTransaction(transaction);
 
-                    _transactionDetailRepo.saveTransactionDetail(transactionDetail);
+                    _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
 
                     id = tokens[0];
                 }
@@ -105,13 +107,15 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.unitSold = Int32.Parse(tokens[4]);
 
                     String barcode = tokens[3];
-                    Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
+                    //Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
                     transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
 
-                    _transactionDetailRepo.saveTransactionDetail(transactionDetail);
+                    _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
 
                 }
             }
+            _transactionRepo.saveContext();
+            _transactionDetailRepo.saveContext();
             return true;
         }
 

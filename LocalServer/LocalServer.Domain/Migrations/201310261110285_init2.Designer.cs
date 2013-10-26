@@ -5,13 +5,13 @@ namespace LocalServer.Domain.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class fixer : IMigrationMetadata
+    public sealed partial class init2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fixer));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201310220726263_fixer"; }
+            get { return "201310261110285_init2"; }
         }
         
         string IMigrationMetadata.Source

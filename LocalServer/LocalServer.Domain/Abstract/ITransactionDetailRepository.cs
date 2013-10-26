@@ -11,6 +11,8 @@ namespace LocalServer.Domain.Abstract
     {
         IQueryable<TransactionDetail> TransactionDetails { get; }
         void saveTransactionDetail(TransactionDetail transactionDetail);
+        void quickSaveTransactionDetail(TransactionDetail transactionDetail);
+        void saveContext();
         void deleteTransactionDetail(TransactionDetail transactionDetail);
     }
 }
