@@ -99,7 +99,8 @@ namespace LocalServer.WebUI.Controllers
 
                     id = tokens[0];
                 }
-                else {
+                else 
+                {
                     TransactionDetail transactionDetail = new TransactionDetail();
 
                     transactionDetail.transactionID = Int32.Parse(id);
@@ -117,6 +118,16 @@ namespace LocalServer.WebUI.Controllers
             _transactionRepo.saveContext();
             _transactionDetailRepo.saveContext();
             return true;
+        }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult ProcessSearch()
+        {
+            return View();
         }
 
     }

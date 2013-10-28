@@ -13,5 +13,9 @@ namespace LocalServer.Domain.Abstract
         void saveProduct(Product product);
         void deleteProduct(Product product);
         void deleteTable();
+
+        void quickSaveProduct(Product product);
+
+        void saveContext();
     }
 }

@@ -14,5 +14,9 @@ namespace LocalServer.Domain.Abstract
         void saveCategory(Category category);
         void deleteCategory(Category category);
         void deleteTable();
+
+        void saveContext();
+
+        void quickSaveCategory(Entities.Category category);
     }
 }

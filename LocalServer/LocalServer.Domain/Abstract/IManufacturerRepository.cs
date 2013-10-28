@@ -14,5 +14,9 @@ namespace LocalServer.Domain.Abstract
         void deleteManufacturer(Manufacturer manufacturer);
 
         void deleteTable();
+
+        void quickSaveManufacturer(Manufacturer manufacturer);
+
+        void saveContext();
     }
 }

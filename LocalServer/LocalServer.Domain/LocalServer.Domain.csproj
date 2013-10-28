@@ -72,15 +72,14 @@
     <Compile Include="Entities\BatchRequestDetail.cs" />
     <Compile Include="Entities\CashRegister.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Inventory.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\PriceDisplay.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
-    <Compile Include="Migrations\201310261110285_init2.cs" />
-    <Compile Include="Migrations\201310261110285_init2.Designer.cs">
-      <DependentUpon>201310261110285_init2.cs</DependentUpon>
+    <Compile Include="Migrations\201310270733073_Initial.cs" />
+    <Compile Include="Migrations\201310270733073_Initial.Designer.cs">
+      <DependentUpon>201310270733073_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310261110285_init2.resx">
-      <DependentUpon>201310261110285_init2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201310270733073_Initial.resx">
+      <DependentUpon>201310270733073_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,6 +31,16 @@ namespace LocalServer.Domain.Concrete
             }
         }
 
+        public void quickSaveCategory(Category category)
+        {
+            context.Categories.Add(category);
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
+        }
+
         public void deleteCategory(Category category)
         {
             context.Categories.Remove(category);
@@ -39,7 +49,7 @@ namespace LocalServer.Domain.Concrete
 
         public void deleteTable()
         {
-           
+
         }
     }
 }

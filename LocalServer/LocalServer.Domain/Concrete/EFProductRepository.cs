@@ -31,6 +31,25 @@ namespace LocalServer.Domain.Concrete
             }
         }
 
+        public void quickSaveProduct(Product product)
+        {
+            if (product.productID == 0)
+            {
+                context.Products.Add(product);
+                
+            }
+            else
+            {
+                context.Entry(product).State = EntityState.Modified;
+               
+            }
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
+        }
+
         public void deleteProduct(Product product)
         {
             context.Products.Remove(product);

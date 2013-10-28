@@ -3,7 +3,7 @@ namespace LocalServer.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init2 : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -31,7 +31,7 @@ namespace LocalServer.Domain.Migrations
                 "dbo.Categories",
                 c => new
                     {
-                        categoryID = c.Int(nullable: false, identity: true),
+                        categoryID = c.Int(nullable: false),
                         categoryName = c.String(),
                     })
                 .PrimaryKey(t => t.categoryID);
@@ -40,7 +40,7 @@ namespace LocalServer.Domain.Migrations
                 "dbo.Manufacturers",
                 c => new
                     {
-                        manufacturerID = c.Int(nullable: false, identity: true),
+                        manufacturerID = c.Int(nullable: false),
                         manufacturerName = c.String(),
                     })
                 .PrimaryKey(t => t.manufacturerID);

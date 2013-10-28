@@ -31,6 +31,16 @@ namespace LocalServer.Domain.Concrete
             }
         }
 
+        public void quickSaveManufacturer(Manufacturer manufacturer)
+        {
+            context.Manufacturers.Add(manufacturer);
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
+        }
+
         public void deleteManufacturer(Manufacturer manufacturer)
         {
             context.Manufacturers.Remove(manufacturer);
