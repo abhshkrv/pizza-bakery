@@ -10,6 +10,7 @@ namespace LocalServer.Domain.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int priceDisplayID { get; set; }
+        public string barcode { get; set; }
         public byte status { get; set; }
     }
 }

@@ -1,0 +1,40 @@
+﻿@using System.Web.Mvc.Html; 
+@using LocalServer.WebUI.HtmlHelpers
+@using LocalServer.WebUI.Models
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Date
+        </th>
+        <th class="NumericCol">
+            Cashier ID
+        </th>
+    </tr>
+@{
+    int i=1;
+  foreach (var item in Model.Transactions) 
+  {
+      string text = item.transactionID.ToString();
+    <tr>
+        
+        <td>@Html.ActionLink(text,"Detail","Transaction",new{@item.transactionID},null)</td>
+        <td>@item.date.ToShortDateString()</td>
+        <td >@item.cashierID</td>
+        
+    </tr>
+    }
+      
+}
+
+<div class="pager">
+@Html.PageLinks((PagingInfo)Model.PagingInfo, x => Url.Action("List", new {page = x}))
+</div>

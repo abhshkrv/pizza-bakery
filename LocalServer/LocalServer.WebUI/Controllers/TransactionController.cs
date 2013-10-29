@@ -8,6 +8,7 @@ using LocalServer.Domain;
 using LocalServer.Domain.Entities;
 using LocalServer.Domain.Abstract;
 using LocalServer.WebUI.Infrastructure;
+using LocalServer.WebUI.Models;
 
 namespace LocalServer.WebUI.Controllers
 {
@@ -23,7 +24,7 @@ namespace LocalServer.WebUI.Controllers
             _transactionDetailRepo = transactionDetailRepo;
             _productRepo = productRepo;
         }
-        
+
         //
         // GET: /Transaction/
 
@@ -68,7 +69,7 @@ namespace LocalServer.WebUI.Controllers
         private bool parseFile(string fileName)
         {
             var productDictionary = _productRepo.Products.Select(p => new { p.barcode, p.sellingPrice }).AsEnumerable().ToDictionary(kvp => kvp.barcode, kvp => kvp.sellingPrice);
-           
+
 
             string[] lines = System.IO.File.ReadAllLines(Server.MapPath(@"~/Content/TransactionData/" + fileName));
             List<string> inputList = lines.Cast<string>().ToList();
@@ -99,7 +100,7 @@ namespace LocalServer.WebUI.Controllers
 
                     id = tokens[0];
                 }
-                else 
+                else
                 {
                     TransactionDetail transactionDetail = new TransactionDetail();
 
@@ -125,9 +126,72 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
-        public ActionResult ProcessSearch()
+        [HttpGet]
+        public ActionResult ProcessSearch(string transactionID = null, string barcode = null, string date = null)
         {
-            return View();
+            TransactionListViewModel viewModel = new TransactionListViewModel();
+            String noResults = "No Transactions found with ";
+
+            if (transactionID != "" && transactionID != null)
+            {
+                int id = Int32.Parse(transactionID);
+                viewModel.Transactions = _transactionRepo.Transactions.Where(t => t.transactionID == id);
+                viewModel.TransactionDetail = _transactionDetailRepo.TransactionDetails.Where(td => td.transactionID == Int32.Parse(transactionID));
+                noResults += "transactionID = " + transactionID;
+            }
+            /* else if (barcode != "" && barcode != null)
+             {
+                 viewModel.TransactionDetail = _transactionDetailRepo.TransactionDetails.Where(td=>td.barcode == barcode);
+                foreach(var item in viewModel.TransactionDetail)
+                {
+                     viewModel.Transactions = 
+                }
+             }*/
+
+            if (viewModel.Transactions.Count() != 0)
+                return View("SearchResults", viewModel);
+            else
+            {
+                TempData["results"] = noResults;
+                return View("Search");
+            }
+
+
+
+        }
+
+        public ActionResult Detail(int transactionID)
+        {
+                //int id = Int32.Parse(transactionID);
+                TransactionDetailsListViewModel viewModel = new TransactionDetailsListViewModel();
+                viewModel.transaction = _transactionRepo.Transactions.First(t => t.transactionID == transactionID);
+                viewModel.TransactionDetail = _transactionDetailRepo.TransactionDetails.Where(td => td.transactionID == transactionID);
+                if (viewModel.TransactionDetail.Count() == 0)
+                {
+                    TempData["results"] = "Invalid transaction ID";
+                    return View();
+                }
+                return View(viewModel);
+        }
+
+        public ViewResult List(int page = 1)
+        {
+            int PageSize = 300;
+            TransactionListViewModel viewModel = new TransactionListViewModel
+            {
+                Transactions = _transactionRepo.Transactions
+                .OrderBy(t => t.transactionID)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _productRepo.Products.Count()
+                }
+            };
+
+            return View(viewModel);
         }
 
     }

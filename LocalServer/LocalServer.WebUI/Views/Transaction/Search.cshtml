@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+<h3>@TempData["Results"]</h3>
+@using(Html.BeginForm("ProcessSearch","Transaction",FormMethod.Get))
+    {
+    @Html.Label("transactionId", "transactionId"); @Html.Editor("transactionId");<br />
+@Html.Label("Barcode", "Barcode");@Html.Editor("barcode")<br />
+  <input type="submit" value="Search" />
+    }

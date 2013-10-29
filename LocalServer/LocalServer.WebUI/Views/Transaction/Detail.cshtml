@@ -1,0 +1,51 @@
+﻿@model  LocalServer.WebUI.Models.TransactionDetailsListViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model == null)
+{
+    @TempData["results"];
+}
+else
+{
+<table class="grid">
+    <tr>
+        <td><b>ID</b></td>
+        <td>@Model.transaction.transactionID</td>
+    </tr>
+    <tr>
+        <td><b>Date</b></td>
+        <td>@Model.transaction.date.ToShortDateString()</td>
+    </tr>
+     <tr>
+        <td><b>CashierID</b></td>
+         <td>@Model.transaction.cashierID</td>
+     </tr>
+       
+ </table>       
+
+<h3> Transaction Details :</h3>
+
+<table>
+    <tr>
+       <td> Barcode</td>
+       <td> Quantity</td>
+       <td> Price</td>
+    </tr>
+
+@foreach (var detail in @Model.TransactionDetail)
+{ 
+    <tr>
+        <td>@detail.barcode</td>
+        <td>@detail.unitSold</td>
+        <td>@detail.cost</td>
+    </tr>
+    
+}
+    </table>
+}
+<h4>@Html.ActionLink("Search Another Transaction", "Search")</h4>
+<h4>@Html.ActionLink("View Aall Transactions", "Index")</h4>

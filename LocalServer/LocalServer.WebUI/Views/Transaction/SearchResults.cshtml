@@ -1,0 +1,38 @@
+﻿@model LocalServer.WebUI.Models.TransactionListViewModel
+    
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Date
+        </th>
+        <th class="NumericCol">
+            Cashier ID
+        </th>
+    </tr>
+@{
+    int i=1;
+  foreach (var item in Model.Transactions) 
+  {
+    <tr>
+        
+        <td>@Html.ActionLink(@item.transactionID.ToString(),"Detail","Transaction",new{@item.transactionID},null)</td>
+        <td>@item.date.ToShortDateString()</td>
+        <td >@item.cashierID</td>
+        
+    </tr>
+    }
+      
+}
+
+
+</table>
