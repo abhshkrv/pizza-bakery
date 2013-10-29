@@ -187,11 +187,63 @@ namespace LocalServer.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = _productRepo.Products.Count()
+                    TotalItems = _transactionRepo.Transactions.Count()
                 }
             };
 
             return View(viewModel);
+        }
+
+        public ViewResult AddTransaction()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddTransaction(string transactionString = null)
+        {
+            if (ModelState.IsValid)
+            {
+                string[] tokens = transactionString.Split(':');
+                Transaction transaction = new Transaction();
+                TransactionDetail transactionDetail;
+
+                transaction.cashierID = Int32.Parse(tokens[0]);
+                transaction.date = DateTime.Today.Date;
+                transaction.transactionID = _transactionRepo.Transactions.Max(t => t.transactionID) + 1;
+
+                int transactionID = getTransactionID(transaction);
+                
+
+                string[] products = tokens[1].Split(';');
+                int i = 0;
+                while (products.Length>i)
+                {
+                    transactionDetail = new TransactionDetail();
+                    transactionDetail.transactionID = transactionID;
+                    string[] item = products[i].Split('#');
+                    transactionDetail.barcode = item[0];
+                    transactionDetail.unitSold = Int32.Parse(item[1]);
+                    i++;
+                    _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
+                    //_transactionDetailRepo.saveTransactionDetail(transactionDetail);
+
+                }
+
+                _transactionDetailRepo.saveContext();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View();
+            }
+        }
+
+        private int getTransactionID(Transaction transaction)
+        {
+            _transactionRepo.saveTransaction(transaction);
+            return transaction.transactionID;
         }
 
     }

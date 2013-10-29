@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "AddTransaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddTransaction","Transaction")) {
+    
+        <div>
+        <fieldset>
+            <legend>Add Transaction</legend>
+
+            <div class="editor-label">
+                @Html.Label("Transaction", "Transaction String (<cashierID>:<barcode>#<quantity>;<barcode>#<quantity> ...)")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("transactionString")
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </div>
+}
+@Html.ActionLink("Cancel and return to List", "List")
