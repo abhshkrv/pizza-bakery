@@ -63,7 +63,8 @@ namespace LocalServer.WebUI.Controllers
                 product.bundleUnit = (int)p["bundleUnit"];
                 product.currentStock = (int)p["currentStock"];
                 product.discountPercentage = (float)p["discountPercentage"];
-                product.maxPrice = (float)p["maxPrice"];
+                //Change this to p["maxPrice"] later
+                product.maxPrice = (float)p["costPrice"];
                 product.minimumStock = (int)p["minimumStock"];
                 product.productName = (string)p["productName"];
                 product.sellingPrice = product.maxPrice;
@@ -192,6 +193,39 @@ namespace LocalServer.WebUI.Controllers
                 // there is something wrong with the data values
                 return View(product);
             }
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ProcessSearch(string name = null, string barcode = null, string manufacturer = null, string category = null)
+        {
+            ProductsListViewModel viewModel = new ProductsListViewModel();
+            String noResults = "No product found with ";
+
+            if (barcode != "" && barcode != null)
+            {
+                viewModel.Products = _productRepo.Products.Where(p => p.barcode == barcode);
+                noResults += "barcode = " + barcode;
+            }
+            else if (name != "" && name != null)
+            {
+                viewModel.Products = _productRepo.Products.Where(p => p.productName.Contains(name));
+                noResults += "Name = " + name;
+            }
+
+            if (viewModel.Products.Count() != 0)
+                return View("SearchResults", viewModel);
+            else
+            {
+                TempData["results"] = noResults;
+                return View("Search");
+            }
+
         }
     }
 }

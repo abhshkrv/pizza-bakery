@@ -1,0 +1,45 @@
+﻿@model LocalServer.WebUI.Models.ProductsListViewModel
+    
+
+
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search Results</h2>
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th class="NumericCol">
+            Selling Price
+        </th>
+        <th>
+            Current Stock
+        </th>
+        
+        <th>Actions</th>
+    </tr>
+@{ int i=1;
+  foreach (var item in Model.Products) {
+    
+    <tr>
+        <td>@i</td>
+        <td>@Html.ActionLink(@item.productName, "Details",new { item.productID })</td>
+        <td class="NumericCol">@item.sellingPrice.ToString("c")</td>
+        <td >@item.currentStock</td>
+
+        <td>@Html.ActionLink("Edit", "Edit", new { item.productID })</td>
+    </tr>
+      i++;
+}
+}
+
+</table>
+<h4>@Html.ActionLink("Return to search criteria", "Search")</h4>

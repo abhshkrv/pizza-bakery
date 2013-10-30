@@ -2,7 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>@ViewBag.Message</h2>
+<h2>Welcome !</h2>
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    <h4>@Html.ActionLink("View Product List", "../Inventory/List")</h4>
+    <h4>@Html.ActionLink("View Transaction List", "../Transaction/List")</h4>
+    <h4>@Html.ActionLink("Search for a Product ", "../Inventory/Search")</h4>
+    <h4>@Html.ActionLink("Search for a Transaction ", "../Transaction/Search")</h4>
+    <h4>@Html.ActionLink("Upload transaction file ", "../Inventory/Upload")</h4>
 </p>

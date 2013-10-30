@@ -226,6 +226,11 @@
     <Content Include="Views\Transaction\List.cshtml" />
     <Content Include="Views\Hardware\listPriceDisplays.cshtml" />
     <Content Include="Views\Hardware\listCashRegisters.cshtml" />
+    <Content Include="Views\Inventory\Details.cshtml" />
+    <Content Include="Views\Inventory\Edit.cshtml" />
+    <Content Include="Views\Inventory\List.cshtml" />
+    <Content Include="Views\Inventory\Search.cshtml" />
+    <Content Include="Views\Inventory\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
