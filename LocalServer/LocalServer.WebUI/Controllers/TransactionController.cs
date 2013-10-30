@@ -9,6 +9,9 @@ using LocalServer.Domain.Entities;
 using LocalServer.Domain.Abstract;
 using LocalServer.WebUI.Infrastructure;
 using LocalServer.WebUI.Models;
+using System.Web.Script.Serialization;
+using System.Net;
+using System.Text;
 
 namespace LocalServer.WebUI.Controllers
 {
@@ -245,6 +248,94 @@ namespace LocalServer.WebUI.Controllers
             return transaction.transactionID;
         }
 
+        public class SellingDetails
+        {
+            
+            public int quantity { get; set; }
+            public float unitPrice { get; set; }
+        }
+
+        public ContentResult sendSummary(string date)
+        {
+            DateTime inDate = new DateTime();
+            try
+            {
+                inDate = DateTime.Parse(date);
+            }
+            catch
+            {
+
+                return new ContentResult() { Content = "Invalid Date" };
+            }
+
+            Dictionary<string, SellingDetails> d = new Dictionary<string, SellingDetails>();
+
+            var transactions1 = _transactionRepo.Transactions.Where(t => t.date.Day ==inDate.Day&&t.date.Month == inDate.Month&&t.date.Year==inDate.Year);
+            var transactions = transactions1.ToList();
+            var transactionDetails = _transactionDetailRepo.TransactionDetails.ToList();
+
+            var result = from td in transactionDetails
+                         join t in transactions on td.transactionID equals t.transactionID
+                         select new { barcode = td.barcode, qty = td.unitSold, price = td.cost };
+
+
+            foreach (var item in result)
+            {
+                if (d.ContainsKey(item.barcode))
+                {
+                    var detail = d[item.barcode];
+                    detail.quantity += item.qty;
+                }
+                else
+                {
+                    SellingDetails sd = new SellingDetails();
+                    sd.quantity = item.qty;
+                    sd.unitPrice = item.price;
+                    d.Add(item.barcode, sd);
+                }
+            }
+
+            Dictionary<string, object> output = new Dictionary<string, object>();
+            output.Add("Date", inDate.Date.ToShortDateString());
+            output.Add("TransactionDetails", d.ToList());
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
+            /*return new ContentResult()
+            {
+                Content = serializer.Serialize(output),
+                ContentType = "application/json",
+            };*/
+
+            sendPost(serializer.Serialize(output));
+
+        }
+
+        private string sendPost(string content)
+        {
+            HttpWebRequest httpWReq =
+        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadtransactions");
+
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string postData = "TransactionData=";
+            postData += content;
+            byte[] data = encoding.GetBytes(postData);
+
+            httpWReq.Method = "POST";
+            httpWReq.ContentType = "application/json";
+            httpWReq.ContentLength = data.Length;
+
+            using (Stream stream = httpWReq.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+
+            string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return responseString;
+
+        }
+
     }
+
 
 }

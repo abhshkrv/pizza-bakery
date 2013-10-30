@@ -231,6 +231,7 @@
     <Content Include="Views\Inventory\List.cshtml" />
     <Content Include="Views\Inventory\Search.cshtml" />
     <Content Include="Views\Inventory\SearchResults.cshtml" />
+    <Content Include="Views\Transaction\sendSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

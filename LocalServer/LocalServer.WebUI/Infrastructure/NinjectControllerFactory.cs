@@ -34,6 +34,8 @@ namespace LocalServer.WebUI.Infrastructure
             ninjectKernel.Bind<IBatchRequestRepository>().To<EFBatchRequestRepository>();
             ninjectKernel.Bind<ITransactionRepository>().To<EFTransactionRepository>();
             ninjectKernel.Bind<ITransactionDetailRepository>().To<EFTransactionDetailRepository>();
+            ninjectKernel.Bind<ICashRegisterRepository>().To<EFCashRegisterRepository>();
+            ninjectKernel.Bind<IPriceDisplayRepository>().To<EFPriceDisplayRepository>();
            
         }
     }
