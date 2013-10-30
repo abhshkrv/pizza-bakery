@@ -81,13 +81,9 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
-    <Compile Include="Migrations\201310270733073_Initial.cs" />
-    <Compile Include="Migrations\201310270733073_Initial.Designer.cs">
-      <DependentUpon>201310270733073_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201310301754188_hardware.cs" />
-    <Compile Include="Migrations\201310301754188_hardware.Designer.cs">
-      <DependentUpon>201310301754188_hardware.cs</DependentUpon>
+    <Compile Include="Migrations\201310301826131_initial.cs" />
+    <Compile Include="Migrations\201310301826131_initial.Designer.cs">
+      <DependentUpon>201310301826131_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,11 +93,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310270733073_Initial.resx">
-      <DependentUpon>201310270733073_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201310301754188_hardware.resx">
-      <DependentUpon>201310301754188_hardware.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201310301826131_initial.resx">
+      <DependentUpon>201310301826131_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

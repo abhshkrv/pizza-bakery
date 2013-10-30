@@ -3,7 +3,7 @@ namespace LocalServer.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -35,6 +35,15 @@ namespace LocalServer.Domain.Migrations
                         categoryName = c.String(),
                     })
                 .PrimaryKey(t => t.categoryID);
+            
+            CreateTable(
+                "dbo.CashRegisters",
+                c => new
+                    {
+                        cashRegisterID = c.Int(nullable: false),
+                        status = c.Byte(nullable: false),
+                    })
+                .PrimaryKey(t => t.cashRegisterID);
             
             CreateTable(
                 "dbo.Manufacturers",
@@ -84,14 +93,26 @@ namespace LocalServer.Domain.Migrations
                     })
                 .PrimaryKey(t => t.productID);
             
+            CreateTable(
+                "dbo.PriceDisplays",
+                c => new
+                    {
+                        priceDisplayID = c.Int(nullable: false),
+                        barcode = c.String(),
+                        status = c.Byte(nullable: false),
+                    })
+                .PrimaryKey(t => t.priceDisplayID);
+            
         }
         
         public override void Down()
         {
+            DropTable("dbo.PriceDisplays");
             DropTable("dbo.Products");
             DropTable("dbo.TransactionDetails");
             DropTable("dbo.Transactions");
             DropTable("dbo.Manufacturers");
+            DropTable("dbo.CashRegisters");
             DropTable("dbo.Categories");
             DropTable("dbo.BatchRequestDetails");
             DropTable("dbo.BatchRequests");

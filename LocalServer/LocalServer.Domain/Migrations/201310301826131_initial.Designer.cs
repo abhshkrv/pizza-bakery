@@ -5,13 +5,13 @@ namespace LocalServer.Domain.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class hardware : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(hardware));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201310301754188_hardware"; }
+            get { return "201310301826131_initial"; }
         }
         
         string IMigrationMetadata.Source
