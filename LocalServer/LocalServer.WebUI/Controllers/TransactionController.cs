@@ -226,7 +226,6 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.unitSold = Int32.Parse(item[1]);
                     i++;
                     _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
-                    //_transactionDetailRepo.saveTransactionDetail(transactionDetail);
 
                 }
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace LocalServer.WebUI.Models
 {
-    public class ProductListViewModelModel
+    public class ProductsListViewModel
     {
         public IEnumerable<Product> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }

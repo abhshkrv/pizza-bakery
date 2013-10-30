@@ -8,6 +8,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using LocalServer.WebUI.Models;
+
 
 namespace LocalServer.WebUI.Controllers
 {
@@ -125,7 +127,7 @@ namespace LocalServer.WebUI.Controllers
             foreach (var p in productArray)
             {
                 Manufacturer manufacturer = new Manufacturer();
-                manufacturer.manufacturerID = (int)p["manufactuerID"];
+                manufacturer.manufacturerID = (int)p["manufacturerID"];
 
                 manufacturer.manufacturerName = (string)p["manufacturerName"];
 
@@ -137,6 +139,56 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
+        public int PageSize = 200;
+        public ViewResult List(int page = 1)
+        {
+            ProductsListViewModel viewModel = new ProductsListViewModel
+            {
+                Products = _productRepo.Products
+                .OrderBy(p => p.productID)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _productRepo.Products.Count()
+                }
+            };
 
+            return View(viewModel);
+        }
+
+        public ViewResult Details(int productId)
+        {
+
+            ProductsDetailsViewModel viewModel = new ProductsDetailsViewModel();
+            viewModel.product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
+            viewModel.manufacturer = _manufacturerRepo.Manufacturers.FirstOrDefault(m => m.manufacturerID == viewModel.product.manufacturerID);
+            viewModel.category = _categoryRepo.Categories.FirstOrDefault(c => c.categoryID == viewModel.product.categoryID);
+
+            return View(viewModel);
+        }
+
+        public ViewResult Edit(int productId)
+        {
+            Product product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _productRepo.saveProduct(product);
+                TempData["message"] = string.Format("{0} has been saved", product.productName);
+                return RedirectToAction("List");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(product);
+            }
+        }
     }
 }

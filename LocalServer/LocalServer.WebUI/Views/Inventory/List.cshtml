@@ -1,0 +1,50 @@
+﻿@using System.Web.Mvc.Html; 
+@using LocalServer.WebUI.HtmlHelpers
+@using LocalServer.WebUI.Models
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+
+
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th class="NumericCol">
+            Selling Price
+        </th>
+        <th>
+            Current Stock
+        </th>
+        
+        <th>Actions</th>
+    </tr>
+@{ 
+  foreach (var item in Model.Products) {
+    string name=@item.productName;
+    <tr>
+        <td>@item.productID</td>
+        <td>@Html.ActionLink(name, "Details","Inventory",new {@item.productID },null)</td>
+        <td class="NumericCol">@item.sellingPrice.ToString("c")</td>
+        <td >@item.currentStock</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { item.productID })</td>
+    </tr>
+ 
+}
+}
+
+</table>
+
+
+<div class="pager">
+@Html.PageLinks((PagingInfo)Model.PagingInfo, x => Url.Action("List", new {page = x}))
+</div>
