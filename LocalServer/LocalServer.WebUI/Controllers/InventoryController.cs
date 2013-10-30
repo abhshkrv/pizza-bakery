@@ -124,15 +124,18 @@ namespace LocalServer.WebUI.Controllers
             JObject raw = JObject.Parse(text);
             JArray productArray = (JArray)raw["Manufacturers"];
 
+            Dictionary<int, bool> d = new Dictionary<int, bool>();
+
             foreach (var p in productArray)
             {
                 Manufacturer manufacturer = new Manufacturer();
                 manufacturer.manufacturerID = (int)p["manufacturerID"];
-
                 manufacturer.manufacturerName = (string)p["manufacturerName"];
-
-
-               _manufacturerRepo.quickSaveManufacturer(manufacturer);
+                if (!d.ContainsKey(manufacturer.manufacturerID))
+                {
+                    d.Add(manufacturer.manufacturerID, true);
+                    _manufacturerRepo.quickSaveManufacturer(manufacturer);
+                }
             }
             _manufacturerRepo.saveContext();
 

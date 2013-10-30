@@ -1,0 +1,34 @@
+﻿@model LocalServer.WebUI.Models.PriceDisplayListViewModel
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Barcode
+        </th>
+         <th>
+            Status
+        </th>
+        
+    </tr>
+@{
+  foreach (var item in Model.PriceDisplays) 
+  {
+     
+    <tr>
+        
+        <td>@item.priceDisplayID</td>
+        <td>@item.barcode</td>
+        <td>@item.status</td>
+        <td ></td>
+        
+    </tr>
+    }
+      
+}@{
+    ViewBag.Title = "listPriceDisplays";
+}
+
+<h2>listPriceDisplays</h2>

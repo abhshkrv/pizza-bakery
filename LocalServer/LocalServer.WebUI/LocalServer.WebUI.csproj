@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\HardwareController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
@@ -111,6 +112,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CashRegisterListViewModel.cs" />
+    <Compile Include="Models\PriceDisplayListViewModel.cs" />
+    <Compile Include="Models\ProductsDetailsViewModel.cs" />
+    <Compile Include="Models\ProductsListViewModel.cs" />
     <Compile Include="Models\TransactionDetailsViewModel.cs" />
     <Compile Include="Models\TransactionListViewModel.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
@@ -219,6 +224,8 @@
     <Content Include="Views\Transaction\SearchResults.cshtml" />
     <Content Include="Views\Transaction\Detail.cshtml" />
     <Content Include="Views\Transaction\List.cshtml" />
+    <Content Include="Views\Hardware\listPriceDisplays.cshtml" />
+    <Content Include="Views\Hardware\listCashRegisters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

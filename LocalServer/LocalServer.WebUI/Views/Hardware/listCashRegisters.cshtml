@@ -1,0 +1,31 @@
+﻿@model LocalServer.WebUI.Models.CashRegisterListViewModel
+
+<table class="Grid">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Status
+        </th>
+        
+    </tr>
+@{
+    int i=1;
+  foreach (var item in Model.CashRegisters) 
+  {
+      string text = item.cashRegisterID.ToString();
+    <tr>
+        
+        <td>@item.cashRegisterID</td>
+        <td>@item.status</td>
+        <td ></td>
+        
+    </tr>
+    }
+      
+}@{
+    ViewBag.Title = "listCashRegisters";
+}
+
+<h2>listCashRegisters</h2>

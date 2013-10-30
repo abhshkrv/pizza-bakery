@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IPriceDisplayRepository.cs" />
+    <Compile Include="Abstract\ICashRegisterRepository.cs" />
     <Compile Include="Abstract\IBatchRequestDetailRepository.cs" />
     <Compile Include="Abstract\IBatchResponseRepository.cs" />
     <Compile Include="Abstract\ICategoryRepository.cs" />
@@ -60,6 +62,8 @@
     <Compile Include="Abstract\ITransactionDetailRepository.cs" />
     <Compile Include="Abstract\ITransactionRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Concrete\EFPriceDisplayRepository.cs" />
+    <Compile Include="Concrete\EFCashRegisterRepository.cs" />
     <Compile Include="Concrete\EFBatchRequestDetailRepository.cs" />
     <Compile Include="Concrete\EFBatchRequestRepository.cs" />
     <Compile Include="Concrete\EFCategoryRepository.cs" />
@@ -81,6 +85,10 @@
     <Compile Include="Migrations\201310270733073_Initial.Designer.cs">
       <DependentUpon>201310270733073_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310301754188_hardware.cs" />
+    <Compile Include="Migrations\201310301754188_hardware.Designer.cs">
+      <DependentUpon>201310301754188_hardware.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +99,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310270733073_Initial.resx">
       <DependentUpon>201310270733073_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310301754188_hardware.resx">
+      <DependentUpon>201310301754188_hardware.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
