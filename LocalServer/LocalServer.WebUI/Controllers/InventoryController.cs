@@ -78,6 +78,61 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
+        public ActionResult RefreshProducts()
+        {
+
+            string url = "http://pizza-hq.azurewebsites.net/shop/getFullInventoryList";
+            var request = WebRequest.Create(url);
+            request.ContentType = "application/json; charset=utf-8";
+            string text;
+            var response = (HttpWebResponse)request.GetResponse();
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            JObject raw = JObject.Parse(text);
+            JArray productArray = (JArray)raw["Products"];
+
+            Dictionary<string, Product> productDictionary = new Dictionary<string, Product>();
+
+            foreach (var p in productArray)
+            {
+                Product product = new Product();
+                product.barcode = (string)p["barcode"];
+                product.categoryID = (int)p["categoryID"];
+                product.manufacturerID = (int)p["manufacturerID"];
+                product.bundleUnit = (int)p["bundleUnit"];
+                product.currentStock = (int)p["currentStock"];
+                product.discountPercentage = (float)p["discountPercentage"];
+                //Change this to p["maxPrice"] later
+                product.maxPrice = (float)p["costPrice"];
+                product.minimumStock = (int)p["minimumStock"];
+                product.productName = (string)p["productName"];
+                product.sellingPrice = product.maxPrice;
+
+                productDictionary.Add(product.barcode, product);
+            }
+
+            foreach (var p in _productRepo.Products)
+            {
+                Product nP = productDictionary[p.barcode];
+                p.bundleUnit = nP.bundleUnit;
+                p.categoryID = nP.categoryID;
+                p.manufacturerID = nP.manufacturerID;
+                p.maxPrice = nP.maxPrice;
+                p.minimumStock = nP.minimumStock;
+                p.productName = nP.productName;
+                _productRepo.quickSaveProduct(p);
+            }
+
+            _productRepo.saveContext();
+
+
+            return View();
+        }
+
         public ActionResult SyncCategories()
         {
 
