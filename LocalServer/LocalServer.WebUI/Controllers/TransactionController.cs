@@ -297,6 +297,7 @@ namespace LocalServer.WebUI.Controllers
 
             Dictionary<string, object> output = new Dictionary<string, object>();
             output.Add("Date", inDate.Date.ToShortDateString());
+            output.Add("OutletID", "42");
             output.Add("TransactionDetails", d.ToList());
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
            
@@ -317,12 +318,12 @@ namespace LocalServer.WebUI.Controllers
         (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadtransactions");
 
             ASCIIEncoding encoding = new ASCIIEncoding();
-            string postData = "TransactionData=";
+            string postData = "input=";
             postData += content;
             byte[] data = encoding.GetBytes(postData);
 
             httpWReq.Method = "POST";
-            httpWReq.ContentType = "application/json";
+            httpWReq.ContentType = "application/x-www-form-urlencoded";
             httpWReq.ContentLength = data.Length;
 
             using (Stream stream = httpWReq.GetRequestStream())
