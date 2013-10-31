@@ -299,13 +299,15 @@ namespace LocalServer.WebUI.Controllers
             output.Add("Date", inDate.Date.ToShortDateString());
             output.Add("TransactionDetails", d.ToList());
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
-            /*return new ContentResult()
-            {
-                Content = serializer.Serialize(output),
-                ContentType = "application/json",
-            };*/
+           
 
             sendPost(serializer.Serialize(output));
+
+            return new ContentResult()
+           {
+               Content = serializer.Serialize(output),
+               ContentType = "application/json",
+           };
 
         }
 

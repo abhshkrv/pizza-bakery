@@ -9,6 +9,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LocalServer.WebUI.Models;
+using System.Web.Script.Serialization;
+using System.Text;
 
 
 namespace LocalServer.WebUI.Controllers
@@ -225,6 +227,55 @@ namespace LocalServer.WebUI.Controllers
                 TempData["results"] = noResults;
                 return View("Search");
             }
+
+        }
+
+        public ContentResult sendInventory()
+        {
+            var inventory = _productRepo.Products.ToList();
+
+            var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice };
+
+            Dictionary<string, object> output = new Dictionary<string, object>();
+            output.Add("ShopID", "4");
+            output.Add("Inventory", data);
+
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
+
+
+            //sendPost(serializer.Serialize(output));
+
+            return new ContentResult()
+            {
+                Content = serializer.Serialize(output),
+                ContentType = "application/json",
+            };
+
+        }
+
+        private string sendPost(string content)
+        {
+            HttpWebRequest httpWReq =
+        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadtransactions");
+
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string postData = "TransactionData=";
+            postData += content;
+            byte[] data = encoding.GetBytes(postData);
+
+            httpWReq.Method = "POST";
+            httpWReq.ContentType = "application/json";
+            httpWReq.ContentLength = data.Length;
+
+            using (Stream stream = httpWReq.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+
+            string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return responseString;
 
         }
     }
