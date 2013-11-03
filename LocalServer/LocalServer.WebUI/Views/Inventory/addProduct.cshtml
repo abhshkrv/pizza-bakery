@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "addProduct";
+}
+
+<h2>addProduct</h2>
+
+@using LocalServer.Domain.Entities
+@{
+ViewBag.Title = "Admin: Add product";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Add","Inventory",FormMethod.Post)){
+
+        <div>
+        
+            <legend>Add</legend>
+            <div class="editor-label">
+                @Html.Label("Barcode", "Barcode")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("barcode")
+            </div>
+            <div class="editor-label">
+                @Html.Label("Current Stock", "Current Stock")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("currentStock")
+            </div>
+
+           <div class="editor-label">
+                @Html.Label("Minimum Stock", "Minimum Stock")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("minimumStock")
+            </div>
+           
+            <div class="editor-label">
+                @Html.Label("Bundle Unit", "Bundle Unit")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("bundleUnit")
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Discount Percentage", "Discount Percentage")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("discountPercentage")
+            </div>
+            <input type="submit" />
+            </div>
+}
+
+
+@Html.ActionLink("Cancel and return to List", "List")

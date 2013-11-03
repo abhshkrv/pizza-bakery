@@ -40,7 +40,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult SyncProducts()
         {
-            
+
             string url = "http://pizza-hq.azurewebsites.net/shop/getFullInventoryList";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
@@ -53,7 +53,7 @@ namespace LocalServer.WebUI.Controllers
             }
 
             JObject raw = JObject.Parse(text);
-            JArray  productArray = (JArray )raw["Products"];
+            JArray productArray = (JArray)raw["Products"];
 
             foreach (var p in productArray)
             {
@@ -154,9 +154,9 @@ namespace LocalServer.WebUI.Controllers
             {
                 Category category = new Category();
                 category.categoryID = (int)p["categoryID"];
-                
+
                 category.categoryName = (string)p["categoryName"];
-                
+
 
                 _categoryRepo.quickSaveCategory(category);
             }
@@ -289,7 +289,7 @@ namespace LocalServer.WebUI.Controllers
         {
             var inventory = _productRepo.Products.ToList();
 
-            var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice };
+            var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, minimumStock = p.minimumStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice };
 
             Dictionary<string, object> output = new Dictionary<string, object>();
             output.Add("ShopID", "4");
@@ -298,7 +298,7 @@ namespace LocalServer.WebUI.Controllers
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
 
 
-            //sendPost(serializer.Serialize(output));
+            sendPost(serializer.Serialize(output));
 
             return new ContentResult()
             {
@@ -311,15 +311,15 @@ namespace LocalServer.WebUI.Controllers
         private string sendPost(string content)
         {
             HttpWebRequest httpWReq =
-        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadtransactions");
+        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadOutletInventory");
 
             ASCIIEncoding encoding = new ASCIIEncoding();
-            string postData = "TransactionData=";
+            string postData = "input=";
             postData += content;
             byte[] data = encoding.GetBytes(postData);
 
             httpWReq.Method = "POST";
-            httpWReq.ContentType = "application/json";
+            httpWReq.ContentType = "application/x-www-form-urlencoded";
             httpWReq.ContentLength = data.Length;
 
             using (Stream stream = httpWReq.GetRequestStream())
@@ -333,5 +333,90 @@ namespace LocalServer.WebUI.Controllers
             return responseString;
 
         }
+
+        public ActionResult getNewActivePrices()
+        {
+            string url = "http://pizza-hq.azurewebsites.net/shop/getNewPrices?shopID=46";
+            var request = WebRequest.Create(url);
+            request.ContentType = "application/json; charset=utf-8";
+            string text;
+            var response = (HttpWebResponse)request.GetResponse();
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            JObject raw = JObject.Parse(text);
+            JArray priceList = (JArray)raw["PriceList"];
+
+            Dictionary<string, float> priceDictionary = new Dictionary<string, float>();
+
+            foreach (var product in _productRepo.Products)
+            {
+                product.sellingPrice = priceDictionary[product.barcode];
+
+                _productRepo.quickSaveProduct(product);
+            }
+            _productRepo.saveContext();
+
+            return View();
+        }
+
+        public ActionResult addProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(string barcode, string currentStock, string minimumStock, string bundleUnit, string discountPercentage)
+        {
+
+            Product product = new Product();
+            product.barcode = barcode;
+            product.currentStock = Int32.Parse(currentStock);
+            product.minimumStock = Int32.Parse(minimumStock);
+            product.bundleUnit = Int32.Parse(bundleUnit);
+            product.discountPercentage = float.Parse(discountPercentage);
+            try
+            {
+                Product hqProduct = new Product();
+                string url = "http://pizza-hq.azurewebsites.net/shop/getProductDetails?barcode=" + barcode;
+                var request = WebRequest.Create(url);
+                request.ContentType = "application/json; charset=utf-8";
+                string text;
+                var response = (HttpWebResponse)request.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    text = sr.ReadToEnd();
+                }
+
+                JObject raw = JObject.Parse(text);
+
+                if ("success" == (string)raw["Status"])
+                {
+                    product.manufacturerID = (int)raw["Product"]["manufacturerID"];
+                    product.categoryID = (int)raw["Product"]["categoryID"];
+                    product.minimumStock = (int)raw["Product"]["minimumStock"];
+                    product.productName = (string)raw["Product"]["productName"];
+                    product.sellingPrice = (float)raw["Product"]["costPrice"];
+                    _productRepo.saveProduct(product);
+                    TempData["Result"] = "Success";
+                    return View();
+                }
+                else
+                {
+                    //_productRepo.saveProduct(product);
+                    TempData["Result"] = "Invalid barcode";
+                    return View();
+                }
+            }
+            catch {
+                TempData["Result"] = "Invalid barcode";
+                return View();
+            }
+        }
+
     }
 }

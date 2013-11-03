@@ -71,7 +71,7 @@ namespace LocalServer.WebUI.Controllers
 
         private bool parseFile(string fileName)
         {
-            var productDictionary = _productRepo.Products.Select(p => new { p.barcode, p.sellingPrice }).AsEnumerable().ToDictionary(kvp => kvp.barcode, kvp => kvp.sellingPrice);
+            var productDictionary = _productRepo.Products.ToDictionary(p => p.barcode);
 
 
             string[] lines = System.IO.File.ReadAllLines(Server.MapPath(@"~/Content/TransactionData/" + fileName));
@@ -94,8 +94,8 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.unitSold = Int32.Parse(tokens[4]);
 
                     String barcode = tokens[3];
-                    Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
-                    transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
+                    //Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
+                    transactionDetail.cost = productDictionary[transactionDetail.barcode].sellingPrice* transactionDetail.unitSold;
 
                     _transactionRepo.quickSaveTransaction(transaction);
 
@@ -112,8 +112,7 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.unitSold = Int32.Parse(tokens[4]);
 
                     String barcode = tokens[3];
-                    //Product product = _productRepo.Products.FirstOrDefault(p => p.barcode.Contains(barcode));
-                    transactionDetail.cost = 0; //product.sellingPrice * transactionDetail.unitSold;
+                    transactionDetail.cost = productDictionary[transactionDetail.barcode].sellingPrice * transactionDetail.unitSold;
 
                     _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
 
@@ -228,7 +227,15 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.barcode = item[0];
                     transactionDetail.unitSold = Int32.Parse(item[1]);
                     i++;
-                    _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
+                    Product p = _productRepo.Products.First(pd => pd.barcode == transactionDetail.barcode);
+                    transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
+                    p.currentStock -= transactionDetail.unitSold;
+                    if (p.currentStock >= 0)
+                    {
+                        _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
+
+                        _productRepo.saveProduct(p);
+                    }
 
                 }
 
@@ -297,7 +304,7 @@ namespace LocalServer.WebUI.Controllers
 
             Dictionary<string, object> output = new Dictionary<string, object>();
             output.Add("Date", inDate.Date.ToShortDateString());
-            output.Add("OutletID", "42");
+            output.Add("OutletID", "4");
             output.Add("TransactionDetails", d.ToList());
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
            
@@ -310,6 +317,14 @@ namespace LocalServer.WebUI.Controllers
                ContentType = "application/json",
            };
 
+        }
+
+        public string deleteTransaction(string transactionID)
+        {
+            int id = Int32.Parse(transactionID);
+            Transaction t = _transactionRepo.Transactions.First(t1 => t1.transactionID == id);
+            _transactionRepo.deleteTransaction(t);
+            return "Success";
         }
 
         private string sendPost(string content)
