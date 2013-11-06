@@ -81,9 +81,9 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
-    <Compile Include="Migrations\201310301826131_initial.cs" />
-    <Compile Include="Migrations\201310301826131_initial.Designer.cs">
-      <DependentUpon>201310301826131_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201311062002417_initial.cs" />
+    <Compile Include="Migrations\201311062002417_initial.Designer.cs">
+      <DependentUpon>201311062002417_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,8 +93,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310301826131_initial.resx">
-      <DependentUpon>201310301826131_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201311062002417_initial.resx">
+      <DependentUpon>201311062002417_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

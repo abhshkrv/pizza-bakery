@@ -11,7 +11,7 @@ namespace LocalServer.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201310301826131_initial"; }
+            get { return "201311062002417_initial"; }
         }
         
         string IMigrationMetadata.Source
