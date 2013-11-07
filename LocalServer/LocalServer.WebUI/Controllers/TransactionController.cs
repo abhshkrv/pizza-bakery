@@ -178,7 +178,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ViewResult List(int page = 1)
         {
-            int PageSize = 300;
+            int PageSize = 5000;
             TransactionListViewModel viewModel = new TransactionListViewModel
             {
                 Transactions = _transactionRepo.Transactions
@@ -304,7 +304,7 @@ namespace LocalServer.WebUI.Controllers
 
             Dictionary<string, object> output = new Dictionary<string, object>();
             output.Add("Date", inDate.Date.ToShortDateString());
-            output.Add("OutletID", "4");
+            output.Add("OutletID", "1");
             output.Add("TransactionDetails", d.ToList());
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
            

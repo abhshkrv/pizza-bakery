@@ -78,7 +78,7 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
-        public ActionResult RefreshProducts()
+        public string RefreshProducts()
         {
 
             string url = "http://pizza-hq.azurewebsites.net/shop/getFullInventoryList";
@@ -127,10 +127,21 @@ namespace LocalServer.WebUI.Controllers
                 _productRepo.quickSaveProduct(p);
             }
 
+            Dictionary<string, Product> currentProductDictionary = _productRepo.Products.ToDictionary(p => p.barcode);
+
+            foreach ( var invprod in productDictionary)
+            {
+                Product inp = invprod.Value;
+                if(!currentProductDictionary.ContainsKey(inp.barcode))
+                {
+                    _productRepo.saveProduct(inp);
+                }
+            }
+
             _productRepo.saveContext();
 
 
-            return View();
+            return "Success";
         }
 
         public ActionResult SyncCategories()
@@ -292,11 +303,10 @@ namespace LocalServer.WebUI.Controllers
             var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, minimumStock = p.minimumStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice };
 
             Dictionary<string, object> output = new Dictionary<string, object>();
-            output.Add("ShopID", "4");
+            output.Add("ShopID", "1");
             output.Add("Inventory", data);
 
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
-
 
             sendPost(serializer.Serialize(output));
 
@@ -365,6 +375,12 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult addProduct()
         {
+            return View();
+        }
+
+        public ActionResult getNewProducts()
+        {
+
             return View();
         }
 
