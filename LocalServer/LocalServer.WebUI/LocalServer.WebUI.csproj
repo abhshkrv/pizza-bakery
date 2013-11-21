@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="Controllers\HardwareController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
