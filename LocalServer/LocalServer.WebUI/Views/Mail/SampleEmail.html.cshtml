@@ -50,10 +50,11 @@ Please find below the summary of your order <font color="blue">@Model.Transactio
         </th>
 
     </tr>
-    @{ 
+    @{ float total = 0;
   foreach (var item in Model.TransactionDetail) {
-    string barcode=@item.barcode;
-     string name=Model.Products.FirstOrDefault(p => p.barcode==barcode).productName;
+    string barcode=item.barcode;
+    string name = Model.Products.FirstOrDefault(p => p.barcode == barcode).productName;
+    float sellingPrice = Model.Products.FirstOrDefault(p => p.barcode == barcode).sellingPrice; 
          <tr>
 
         <td>
@@ -63,10 +64,12 @@ Please find below the summary of your order <font color="blue">@Model.Transactio
             @item.unitSold
         </td>
         <td class="NumericCol">
-            $ @item.cost
+            $ @sellingPrice
         </td>
         <td class="NumericCol">
-            $ (@item.cost* @item.unitSold)
+            @{total  = total + item.cost ;}
+
+            $ @item.cost
         </td>
 
     </tr>
@@ -77,7 +80,7 @@ Please find below the summary of your order <font color="blue">@Model.Transactio
         <td></td>
         <td></td>
         <td><h4>Total</h4></td>
-        <td> <h4>$ 403.5</h4></td>
+        <td> <h4>$ @total</h4></td>
     </tr>
       
  </table> 

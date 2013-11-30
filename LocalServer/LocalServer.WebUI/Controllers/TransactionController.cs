@@ -212,10 +212,15 @@ namespace LocalServer.WebUI.Controllers
 
                 transaction.cashierID = Int32.Parse(tokens[0]);
                 transaction.date = DateTime.Today.Date;
-                transaction.transactionID = _transactionRepo.Transactions.Max(t => t.transactionID) + 1;
+                if (_transactionRepo.Transactions.Count() != 0)
+                    transaction.transactionID = _transactionRepo.Transactions.Max(t => t.transactionID) + 1;
+                else
+                    transaction.transactionID = 1;
 
                 int transactionID = getTransactionID(transaction);
-                
+
+                List<Product> tmpP=new List<Product>();
+                List<TransactionDetail> tmpT = new List<TransactionDetail>();
 
                 string[] products = tokens[1].Split(';');
                 int i = 0;
@@ -230,20 +235,26 @@ namespace LocalServer.WebUI.Controllers
                     Product p = _productRepo.Products.First(pd => pd.barcode == transactionDetail.barcode);
                     transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
                     p.currentStock -= transactionDetail.unitSold;
+                    
                     if (p.currentStock >= 0)
                     {
                         _transactionDetailRepo.quickSaveTransactionDetail(transactionDetail);
 
                         _productRepo.saveProduct(p);
+
+                        tmpP.Add(p);
+                        tmpT.Add(transactionDetail);
                     }
 
                 }
 
+                
+
                 _transactionDetailRepo.saveContext();
-                var user = new UserTransaction
+                UserTransaction user = new UserTransaction
                 {
-                    TransactionDetail=_transactionDetailRepo.TransactionDetails,
-                    Products=_productRepo.Products,
+                    TransactionDetail=tmpT,
+                    Products=tmpP,
                     firstName = "Saran",
                     email = "ksk.3393@gmail.com"
 
