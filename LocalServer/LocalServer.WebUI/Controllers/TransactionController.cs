@@ -219,9 +219,6 @@ namespace LocalServer.WebUI.Controllers
 
                 int transactionID = getTransactionID(transaction);
 
-                List<Product> tmpP=new List<Product>();
-                List<TransactionDetail> tmpT = new List<TransactionDetail>();
-
                 string[] products = tokens[1].Split(';');
                 int i = 0;
                 while (products.Length>i)
@@ -242,25 +239,12 @@ namespace LocalServer.WebUI.Controllers
 
                         _productRepo.saveProduct(p);
 
-                        tmpP.Add(p);
-                        tmpT.Add(transactionDetail);
                     }
 
                 }
 
-                
-
                 _transactionDetailRepo.saveContext();
-                UserTransaction user = new UserTransaction
-                {
-                    TransactionDetail=tmpT,
-                    Products=tmpP,
-                    firstName = "Saran",
-                    email = "ksk.3393@gmail.com"
-
-                };
-                string subject = "Transaction details for transaction ID:"+transactionID+" dated :"+transaction.date;
-                new MailController().SampleEmail(user,subject).DeliverAsync();
+                
 
                 return RedirectToAction("List");
             }
@@ -271,17 +255,34 @@ namespace LocalServer.WebUI.Controllers
             }
         }
 
-       /* public string SendEmail()
+        [HttpGet]
+        public string sendTransactionEmail(string customerID,int transactionID)
         {
-            var user = new User
-            {
-                firstName = "Saran",
-                email = "ksk.3393@gmail.com"
-            };
-            new MailController().SampleEmail(user).DeliverAsync();
-            return "SUCCESS";
+            Transaction transaction = new Transaction();
+            IEnumerable <TransactionDetail> transactionDetail=_transactionDetailRepo.TransactionDetails.Where(t => t.transactionID == transactionID);
 
-        } */
+            UserTransaction viewModel = new UserTransaction();
+            viewModel.TransactionDetail=transactionDetail;
+            //Have to be read from DB using customerID
+            viewModel.firstName = "Saran";
+            viewModel.email = "ksk.3393@gmail.com";
+
+            transaction= _transactionRepo.Transactions.FirstOrDefault(t => t.transactionID==transactionID) ;
+
+            List<Product> tmpP = new List<Product>();
+
+            int i = 0;
+            foreach (var item in transactionDetail)
+            {
+                Product p = _productRepo.Products.First(pd => pd.barcode == item.barcode);
+                tmpP.Add(p);
+            }
+            viewModel.Products = tmpP;
+            string subject = "Transaction details for transaction ID:" + transactionID + " dated :" + transaction.date;
+            new MailController().SampleEmail(viewModel, subject).DeliverAsync();
+
+            return "SUCCESS";
+        }
 
         private int getTransactionID(Transaction transaction)
         {
