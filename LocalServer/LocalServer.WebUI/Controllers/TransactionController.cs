@@ -240,6 +240,17 @@ namespace LocalServer.WebUI.Controllers
                 }
 
                 _transactionDetailRepo.saveContext();
+                var user = new UserTransaction
+                {
+                    TransactionDetail=_transactionDetailRepo.TransactionDetails,
+                    Products=_productRepo.Products,
+                    firstName = "Saran",
+                    email = "ksk.3393@gmail.com"
+
+                };
+                string subject = "Transaction details for transaction ID:"+transactionID+" dated :"+transaction.date;
+                new MailController().SampleEmail(user,subject).DeliverAsync();
+
                 return RedirectToAction("List");
             }
             else
@@ -248,6 +259,18 @@ namespace LocalServer.WebUI.Controllers
                 return View();
             }
         }
+
+       /* public string SendEmail()
+        {
+            var user = new User
+            {
+                firstName = "Saran",
+                email = "ksk.3393@gmail.com"
+            };
+            new MailController().SampleEmail(user).DeliverAsync();
+            return "SUCCESS";
+
+        } */
 
         private int getTransactionID(Transaction transaction)
         {
@@ -352,6 +375,8 @@ namespace LocalServer.WebUI.Controllers
             return responseString;
 
         }
+
+
 
     }
 

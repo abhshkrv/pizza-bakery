@@ -1,0 +1,87 @@
+﻿@model LocalServer.WebUI.Models.UserTransaction
+
+@{
+    Layout = null;
+}
+<head>
+<style type="text/css">
+    table {
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 5px;
+    border: solid 1px #e8eef4;
+}
+
+table th {
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+}
+</style>
+</head>
+<body>
+Dear @Model.firstName,<br /><br />
+
+Greetings from pizza!<br />
+We thank you for your order. This email contains your transaction summary. <br />
+Please find below the summary of your order <font color="blue">@Model.TransactionDetail.ElementAt(0).transactionID</font> at pizza:<br />
+
+ 
+ 
+    <h4>Item(s) purchased:</h4>
+<table>
+    <tr>
+
+        <th>
+            Product Details
+        </th>
+        <th>
+            Purchased <br />Quantity
+        </th>
+        <th class="NumericCol">
+            Price
+        </th>
+        <th class="NumericCol">
+            Sub Total
+        </th>
+
+    </tr>
+    @{ 
+  foreach (var item in Model.TransactionDetail) {
+    string barcode=@item.barcode;
+     string name=Model.Products.FirstOrDefault(p => p.barcode==barcode).productName;
+         <tr>
+
+        <td>
+            @name
+        </td>
+        <td>
+            @item.unitSold
+        </td>
+        <td class="NumericCol">
+            $ @item.cost
+        </td>
+        <td class="NumericCol">
+            $ (@item.cost* @item.unitSold)
+        </td>
+
+    </tr>
+    }
+    }
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td><h4>Total</h4></td>
+        <td> <h4>$ 403.5</h4></td>
+    </tr>
+      
+ </table> 
+<br /><br />
+Thank you for shopping with us!<br />
+
+</body>

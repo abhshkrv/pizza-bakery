@@ -20,6 +20,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionMailer.Net">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ActionMailer.Net.Mvc">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -103,7 +115,7 @@
   <ItemGroup>
     <Compile Include="Controllers\HardwareController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
-    <Compile Include="Controllers\SerialController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -121,6 +133,8 @@
     <Compile Include="Models\TransactionListViewModel.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +249,7 @@
     <Content Include="Views\Transaction\sendSummary.cshtml" />
     <Content Include="Views\Inventory\addProduct.cshtml" />
     <Content Include="Views\Inventory\Add.cshtml" />
+    <Content Include="Views\Mail\SampleEmail.html.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
