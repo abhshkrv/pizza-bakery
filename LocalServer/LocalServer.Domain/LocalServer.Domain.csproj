@@ -76,14 +76,20 @@
     <Compile Include="Entities\BatchRequestDetail.cs" />
     <Compile Include="Entities\CashRegister.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\PriceDisplay.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Session.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
     <Compile Include="Migrations\201311062002417_initial.cs" />
     <Compile Include="Migrations\201311062002417_initial.Designer.cs">
       <DependentUpon>201311062002417_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312031705023_session.cs" />
+    <Compile Include="Migrations\201312031705023_session.Designer.cs">
+      <DependentUpon>201312031705023_session.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +101,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201311062002417_initial.resx">
       <DependentUpon>201311062002417_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312031705023_session.resx">
+      <DependentUpon>201312031705023_session.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,11 +15,12 @@ namespace LocalServer.Domain.Concrete
         public DbSet<BatchRequestDetail> BatchRequestDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CashRegister> CashRegisters { get; set; }
-        //public DbSet<Member> Members { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PriceDisplay> PriceDisplays { get; set; }
+        public DbSet<Session> Sessions { get; set; }
     }
 }
