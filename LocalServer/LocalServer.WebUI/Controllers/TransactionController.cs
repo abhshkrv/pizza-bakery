@@ -211,7 +211,7 @@ namespace LocalServer.WebUI.Controllers
                 TransactionDetail transactionDetail;
 
                 transaction.cashierID = Int32.Parse(tokens[0]);
-                transaction.date = DateTime.Today.Date;
+                transaction.date = DateTime.Now;
                 if (_transactionRepo.Transactions.Count() != 0)
                     transaction.transactionID = _transactionRepo.Transactions.Max(t => t.transactionID) + 1;
                 else

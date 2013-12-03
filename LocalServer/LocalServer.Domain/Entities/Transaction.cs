@@ -11,7 +11,7 @@ namespace LocalServer.Domain.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int transactionID { get; set; }
-        public DateTime date { get; set; }
+        public DateTime? date { get; set; }
         public int cashierID { get; set; }
     }
 }
