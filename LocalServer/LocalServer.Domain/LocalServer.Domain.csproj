@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IEmployeeRepository.cs" />
+    <Compile Include="Abstract\ISessionRepository.cs" />
     <Compile Include="Abstract\IPriceDisplayRepository.cs" />
     <Compile Include="Abstract\ICashRegisterRepository.cs" />
     <Compile Include="Abstract\IBatchRequestDetailRepository.cs" />
@@ -62,6 +64,8 @@
     <Compile Include="Abstract\ITransactionDetailRepository.cs" />
     <Compile Include="Abstract\ITransactionRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Concrete\EFEmployeeRepository.cs" />
+    <Compile Include="Concrete\EFSessionRepository.cs" />
     <Compile Include="Concrete\EFPriceDisplayRepository.cs" />
     <Compile Include="Concrete\EFCashRegisterRepository.cs" />
     <Compile Include="Concrete\EFBatchRequestDetailRepository.cs" />
@@ -91,6 +95,14 @@
     <Compile Include="Migrations\201312031705023_session.Designer.cs">
       <DependentUpon>201312031705023_session.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312031911275_namechange.cs" />
+    <Compile Include="Migrations\201312031911275_namechange.Designer.cs">
+      <DependentUpon>201312031911275_namechange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201312031956560_nullable.cs" />
+    <Compile Include="Migrations\201312031956560_nullable.Designer.cs">
+      <DependentUpon>201312031956560_nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -104,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031705023_session.resx">
       <DependentUpon>201312031705023_session.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312031911275_namechange.resx">
+      <DependentUpon>201312031911275_namechange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312031956560_nullable.resx">
+      <DependentUpon>201312031956560_nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

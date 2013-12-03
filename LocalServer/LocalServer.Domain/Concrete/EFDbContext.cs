@@ -21,6 +21,6 @@ namespace LocalServer.Domain.Concrete
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PriceDisplay> PriceDisplays { get; set; }
-        public DbSet<Session> Sessions { get; set; }
+        public DbSet<CRSession> Sessions { get; set; }
     }
 }

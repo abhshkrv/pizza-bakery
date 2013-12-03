@@ -117,6 +117,7 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />

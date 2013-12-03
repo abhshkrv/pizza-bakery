@@ -5,13 +5,13 @@ using System.Text;
 
 namespace LocalServer.Domain.Entities
 {
-    public class Session
+    public class CRSession
     {
         
-        public int sessionID { get; set; }
+        public int CRsessionID { get; set; }
         public string cashRegister { get; set; }
         public string userID { get; set; }
-        public DateTime startTime { get; set; }
-        public DateTime endTime { get; set; }
+        public DateTime? startTime { get; set; }
+        public DateTime? endTime { get; set; }
     }
 }

@@ -36,7 +36,8 @@ namespace LocalServer.WebUI.Infrastructure
             ninjectKernel.Bind<ITransactionDetailRepository>().To<EFTransactionDetailRepository>();
             ninjectKernel.Bind<ICashRegisterRepository>().To<EFCashRegisterRepository>();
             ninjectKernel.Bind<IPriceDisplayRepository>().To<EFPriceDisplayRepository>();
-           
+            ninjectKernel.Bind<IEmployeeRepository>().To<EFEmployeeRepository>();
+            ninjectKernel.Bind<ISessionRepository>().To<EFSessionRepository>();
         }
     }
 }

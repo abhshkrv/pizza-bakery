@@ -8,9 +8,9 @@ namespace LocalServer.Domain.Entities
     public class Employee
     {
         public int employeeID { get; set; }
-        string hashID { get; set; }
-        string role { get; set; }
-        string userID { get; set; }
-        string password { get; set; }
+        public string hashID { get; set; }
+        public string role { get; set; }
+        public string userID { get; set; }
+        public string password { get; set; }
     }
 }
