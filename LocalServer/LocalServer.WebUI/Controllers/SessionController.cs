@@ -60,7 +60,7 @@ namespace LocalServer.WebUI.Controllers
             Dictionary<string, object> output = new Dictionary<string, object>();
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
 
-            CRSession session = _sessionRepo.Sessions.First(s => s.userID == username && s.cashRegister == cashRegister);
+            CRSession session = _sessionRepo.Sessions.Last(s => s.userID == username && s.cashRegister == cashRegister);
 
             session.endTime = DateTime.Now;
             _sessionRepo.saveSession(session);
