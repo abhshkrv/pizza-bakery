@@ -103,6 +103,10 @@
     <Compile Include="Migrations\201312031956560_nullable.Designer.cs">
       <DependentUpon>201312031956560_nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312032037533_nullableNOT.cs" />
+    <Compile Include="Migrations\201312032037533_nullableNOT.Designer.cs">
+      <DependentUpon>201312032037533_nullableNOT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031956560_nullable.resx">
       <DependentUpon>201312031956560_nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312032037533_nullableNOT.resx">
+      <DependentUpon>201312032037533_nullableNOT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,6 @@ namespace LocalServer.Domain.Entities
     {
         public int batchRequestID { get; set; }
         public DateTime timeStamp { get; set; }
-        public byte status { get; set; }
+        public byte status { get; set; } //{sent,attended,verified}
     }
 }
