@@ -37,7 +37,7 @@ namespace LocalServer.WebUI.Controllers
                 };
             }
 
-            CRSession old = _sessionRepo.Sessions.AsEnumerable().Last(s.cashRegister == cashRegister);
+            CRSession old = _sessionRepo.Sessions.AsEnumerable().Last(s=>s.cashRegister == cashRegister);
             if (old != null)
             {
                 if (old.endTime == null)
