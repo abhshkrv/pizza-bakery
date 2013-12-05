@@ -36,6 +36,13 @@ namespace LocalServer.WebUI.Controllers
                     ContentType = "application/json",
                 };
             }
+
+            CRSession old = _sessionRepo.Sessions.AsEnumerable().Last(s => s.userID == username && s.cashRegister == cashRegister);
+            if (old != null)
+            {
+                if (old.endTime == null)
+                    Logout(username, cashRegister);
+            }
             CRSession session = new CRSession();
             session.cashRegister = cashRegister;
             session.userID = username;
