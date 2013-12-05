@@ -41,7 +41,7 @@ namespace LocalServer.WebUI.Controllers
             if (old != null)
             {
                 if (old.endTime == null)
-                    Logout(username, cashRegister);
+                    Logout(old.userID, cashRegister);
             }
             CRSession session = new CRSession();
             session.cashRegister = cashRegister;
