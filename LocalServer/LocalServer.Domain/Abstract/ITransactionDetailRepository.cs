@@ -14,5 +14,8 @@ namespace LocalServer.Domain.Abstract
         void quickSaveTransactionDetail(TransactionDetail transactionDetail);
         void saveContext();
         void deleteTransactionDetail(TransactionDetail transactionDetail);
+
+        void quickDeleteTransactionDetail(TransactionDetail transactionDetail);
+    
     }
 }

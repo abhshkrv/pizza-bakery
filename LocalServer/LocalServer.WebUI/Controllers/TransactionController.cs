@@ -361,7 +361,14 @@ namespace LocalServer.WebUI.Controllers
             Transaction t = _transactionRepo.Transactions.First(t1 => t1.transactionID == id);
             if (t != null)
             {
+                var details = _transactionDetailRepo.TransactionDetails.Where(td=>td.transactionID == id);
+                foreach (var item in details)
+                {
+                    _transactionDetailRepo.quickDeleteTransactionDetail(item);
+                }
+                _transactionDetailRepo.saveContext();
                 _transactionRepo.deleteTransaction(t);
+               
                 return "Success";
             }
             else

@@ -43,6 +43,12 @@ namespace LocalServer.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void quickDeleteTransactionDetail(TransactionDetail TransactionDetail)
+        {
+            context.TransactionDetails.Remove(TransactionDetail);
+            //context.SaveChanges();
+        }
+
         public void deleteTable()
         {
 
