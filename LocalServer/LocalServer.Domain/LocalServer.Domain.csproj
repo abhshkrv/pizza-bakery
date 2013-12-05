@@ -58,7 +58,7 @@
     <Compile Include="Abstract\IPriceDisplayRepository.cs" />
     <Compile Include="Abstract\ICashRegisterRepository.cs" />
     <Compile Include="Abstract\IBatchRequestDetailRepository.cs" />
-    <Compile Include="Abstract\IBatchResponseRepository.cs" />
+    <Compile Include="Abstract\IBatchRequestRepository.cs" />
     <Compile Include="Abstract\ICategoryRepository.cs" />
     <Compile Include="Abstract\IManufacturerRepository.cs" />
     <Compile Include="Abstract\ITransactionDetailRepository.cs" />

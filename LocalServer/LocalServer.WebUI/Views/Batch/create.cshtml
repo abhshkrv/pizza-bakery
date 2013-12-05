@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "create";
+}
+
+<h2>Create</h2>
+
+<h3>@TempData["Result"]</h3>
+
+@using(Html.BeginForm("send","Batch",FormMethod.Get))
+    {
+    @Html.Label("barcode", "Barcode"); @Html.Editor("barcode");<br />
+@Html.Label("qty", "Quantity");@Html.Editor("qty")<br />
+  <input type="submit" value="Create" />
+    }

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "send";
+}
+
+
+<h2>Batch Request</h2>
+
+@if(ViewBag["Result"]=="Error")
+{
+    @:Error
+}
+else
+{
+    @:Success
+}
+

@@ -202,7 +202,7 @@ namespace LocalServer.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(string transactionString = null)
+        public string AddTransaction(string transactionString = null)
         {
             if (ModelState.IsValid)
             {
@@ -246,12 +246,12 @@ namespace LocalServer.WebUI.Controllers
                 _transactionDetailRepo.saveContext();
                 
 
-                return RedirectToAction("List");
+                return transaction.transactionID.ToString();
             }
             else
             {
                 // there is something wrong with the data values
-                return View();
+                return "-1";
             }
         }
 
@@ -357,9 +357,17 @@ namespace LocalServer.WebUI.Controllers
         public string deleteTransaction(string transactionID)
         {
             int id = Int32.Parse(transactionID);
+            
             Transaction t = _transactionRepo.Transactions.First(t1 => t1.transactionID == id);
-            _transactionRepo.deleteTransaction(t);
-            return "Success";
+            if (t != null)
+            {
+                _transactionRepo.deleteTransaction(t);
+                return "Success";
+            }
+            else
+            {
+                return "Fail";
+            }
         }
 
         private string sendPost(string content)
