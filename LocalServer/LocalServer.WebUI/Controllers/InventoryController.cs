@@ -41,7 +41,7 @@ namespace LocalServer.WebUI.Controllers
         public ActionResult SyncProducts()
         {
 
-            string url = "http://pizza-hq.azurewebsites.net/shop/getFullInventoryList";
+            string url = "http://hqserver.azurewebsites.net/shop/getFullInventoryList";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -81,7 +81,7 @@ namespace LocalServer.WebUI.Controllers
         public string RefreshProducts()
         {
 
-            string url = "http://pizza-hq.azurewebsites.net/shop/getFullInventoryList";
+            string url = "http://hqserver.azurewebsites.net/shop/getFullInventoryList";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -147,7 +147,7 @@ namespace LocalServer.WebUI.Controllers
         public ActionResult SyncCategories()
         {
 
-            string url = "http://pizza-hq.azurewebsites.net/shop/getFullCategoriesList";
+            string url = "http://hqserver.azurewebsites.net/shop/getFullCategoriesList";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -179,7 +179,7 @@ namespace LocalServer.WebUI.Controllers
         public ActionResult SyncManufacturers()
         {
 
-            string url = "http://pizza-hq.azurewebsites.net/shop/getFullManufacturersList";
+            string url = "http://hqserver.azurewebsites.net/shop/getFullManufacturersList";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -321,7 +321,7 @@ namespace LocalServer.WebUI.Controllers
         private string sendPost(string content)
         {
             HttpWebRequest httpWReq =
-        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadOutletInventory");
+        (HttpWebRequest)WebRequest.Create("http://hqserver.azurewebsites.net/shop/uploadOutletInventory");
 
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
@@ -346,7 +346,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult getNewActivePrices()
         {
-            string url = "http://pizza-hq.azurewebsites.net/shop/getNewPrices?shopID=46";
+            string url = "http://hqserver.azurewebsites.net/shop/getNewPrices?shopID=46";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -397,7 +397,7 @@ namespace LocalServer.WebUI.Controllers
             try
             {
                 Product hqProduct = new Product();
-                string url = "http://pizza-hq.azurewebsites.net/shop/getProductDetails?barcode=" + barcode;
+                string url = "http://hqserver.azurewebsites.net/shop/getProductDetails?barcode=" + barcode;
                 var request = WebRequest.Create(url);
                 request.ContentType = "application/json; charset=utf-8";
                 string text;

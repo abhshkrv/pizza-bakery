@@ -3,7 +3,7 @@ namespace LocalServer.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class newDB : DbMigration
     {
         public override void Up()
         {
@@ -46,6 +46,18 @@ namespace LocalServer.Domain.Migrations
                 .PrimaryKey(t => t.cashRegisterID);
             
             CreateTable(
+                "dbo.Employees",
+                c => new
+                    {
+                        employeeID = c.Int(nullable: false, identity: true),
+                        hashID = c.String(),
+                        role = c.String(),
+                        userID = c.String(),
+                        password = c.String(),
+                    })
+                .PrimaryKey(t => t.employeeID);
+            
+            CreateTable(
                 "dbo.Manufacturers",
                 c => new
                     {
@@ -71,7 +83,7 @@ namespace LocalServer.Domain.Migrations
                         transactionID = c.Int(nullable: false),
                         barcode = c.String(nullable: false, maxLength: 128),
                         unitSold = c.Int(nullable: false),
-                        cost = c.Single(nullable: false),
+                        cost = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => new { t.transactionID, t.barcode });
             
@@ -84,8 +96,8 @@ namespace LocalServer.Domain.Migrations
                         barcode = c.String(),
                         categoryID = c.Int(nullable: false),
                         manufacturerID = c.Int(nullable: false),
-                        sellingPrice = c.Single(nullable: false),
-                        maxPrice = c.Single(nullable: false),
+                        sellingPrice = c.Double(nullable: false),
+                        maxPrice = c.Double(nullable: false),
                         currentStock = c.Int(nullable: false),
                         minimumStock = c.Int(nullable: false),
                         bundleUnit = c.Int(nullable: false),
@@ -103,15 +115,29 @@ namespace LocalServer.Domain.Migrations
                     })
                 .PrimaryKey(t => t.priceDisplayID);
             
+            CreateTable(
+                "dbo.CRSessions",
+                c => new
+                    {
+                        CRsessionID = c.Int(nullable: false, identity: true),
+                        cashRegister = c.String(),
+                        userID = c.String(),
+                        startTime = c.DateTime(),
+                        endTime = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.CRsessionID);
+            
         }
         
         public override void Down()
         {
+            DropTable("dbo.CRSessions");
             DropTable("dbo.PriceDisplays");
             DropTable("dbo.Products");
             DropTable("dbo.TransactionDetails");
             DropTable("dbo.Transactions");
             DropTable("dbo.Manufacturers");
+            DropTable("dbo.Employees");
             DropTable("dbo.CashRegisters");
             DropTable("dbo.Categories");
             DropTable("dbo.BatchRequestDetails");

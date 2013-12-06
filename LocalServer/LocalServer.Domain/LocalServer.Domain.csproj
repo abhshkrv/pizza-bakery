@@ -87,21 +87,9 @@
     <Compile Include="Entities\Session.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\TransactionDetail.cs" />
-    <Compile Include="Migrations\201311062002417_initial.cs" />
-    <Compile Include="Migrations\201311062002417_initial.Designer.cs">
-      <DependentUpon>201311062002417_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312031705023_session.cs" />
-    <Compile Include="Migrations\201312031705023_session.Designer.cs">
-      <DependentUpon>201312031705023_session.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312031911275_namechange.cs" />
-    <Compile Include="Migrations\201312031911275_namechange.Designer.cs">
-      <DependentUpon>201312031911275_namechange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201312060549108_presicion.cs" />
-    <Compile Include="Migrations\201312060549108_presicion.Designer.cs">
-      <DependentUpon>201312060549108_presicion.cs</DependentUpon>
+    <Compile Include="Migrations\201312061027162_newDB.cs" />
+    <Compile Include="Migrations\201312061027162_newDB.Designer.cs">
+      <DependentUpon>201312061027162_newDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,17 +99,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311062002417_initial.resx">
-      <DependentUpon>201311062002417_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312031705023_session.resx">
-      <DependentUpon>201312031705023_session.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312031911275_namechange.resx">
-      <DependentUpon>201312031911275_namechange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312060549108_presicion.resx">
-      <DependentUpon>201312060549108_presicion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312061027162_newDB.resx">
+      <DependentUpon>201312061027162_newDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

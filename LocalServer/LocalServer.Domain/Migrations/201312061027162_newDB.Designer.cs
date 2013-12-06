@@ -5,13 +5,13 @@ namespace LocalServer.Domain.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class initial : IMigrationMetadata
+    public sealed partial class newDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "201311062002417_initial"; }
+            get { return "201312061027162_newDB"; }
         }
         
         string IMigrationMetadata.Source
