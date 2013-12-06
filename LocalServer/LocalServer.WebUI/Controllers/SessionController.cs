@@ -23,7 +23,7 @@ namespace LocalServer.WebUI.Controllers
         [HttpPost]
         public ContentResult Login(string username, string password, string cashRegister)
         {
-            Employee employee = _employeeRepo.Employees.First(e => e.userID == username);
+            Employee employee = _employeeRepo.Employees.FirstOrDefault(e => e.userID == username);
             Dictionary<string, object> output = new Dictionary<string, object>();
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
             if (employee.password != password)
@@ -70,7 +70,7 @@ namespace LocalServer.WebUI.Controllers
         [HttpPost]
         public ContentResult Logout(string username, string cashRegister)
         {
-            Employee employee = _employeeRepo.Employees.First(e => e.userID == username);
+            Employee employee = _employeeRepo.Employees.FirstOrDefault(e => e.userID == username);
             Dictionary<string, object> output = new Dictionary<string, object>();
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
 

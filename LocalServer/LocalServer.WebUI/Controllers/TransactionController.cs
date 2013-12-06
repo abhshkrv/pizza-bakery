@@ -166,7 +166,7 @@ namespace LocalServer.WebUI.Controllers
         {
                 //int id = Int32.Parse(transactionID);
                 TransactionDetailsListViewModel viewModel = new TransactionDetailsListViewModel();
-                viewModel.transaction = _transactionRepo.Transactions.First(t => t.transactionID == transactionID);
+                viewModel.transaction = _transactionRepo.Transactions.FirstOrDefault(t => t.transactionID == transactionID);
                 viewModel.TransactionDetail = _transactionDetailRepo.TransactionDetails.Where(td => td.transactionID == transactionID);
                 if (viewModel.TransactionDetail.Count() == 0)
                 {
@@ -229,7 +229,7 @@ namespace LocalServer.WebUI.Controllers
                     transactionDetail.barcode = item[0];
                     transactionDetail.unitSold = Int32.Parse(item[1]);
                     i++;
-                    Product p = _productRepo.Products.First(pd => pd.barcode == transactionDetail.barcode);
+                    Product p = _productRepo.Products.FirstOrDefault(pd => pd.barcode == transactionDetail.barcode);
                     transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
                     p.currentStock -= transactionDetail.unitSold;
                     
@@ -274,7 +274,7 @@ namespace LocalServer.WebUI.Controllers
             int i = 0;
             foreach (var item in transactionDetail)
             {
-                Product p = _productRepo.Products.First(pd => pd.barcode == item.barcode);
+                Product p = _productRepo.Products.FirstOrDefault(pd => pd.barcode == item.barcode);
                 tmpP.Add(p);
             }
             viewModel.Products = tmpP;
