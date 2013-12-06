@@ -359,13 +359,20 @@ namespace LocalServer.WebUI.Controllers
             int id = Int32.Parse(transactionID);
             
             Transaction t = _transactionRepo.Transactions.First(t1 => t1.transactionID == id);
+
+            var productDictionary = _productRepo.Products.ToDictionary(p => p.barcode.ToString());
+
             if (t != null)
             {
                 var details = _transactionDetailRepo.TransactionDetails.Where(td=>td.transactionID == id);
                 foreach (var item in details)
                 {
+                    Product p = productDictionary[item.barcode.ToString()];
+                    p.currentStock += item.unitSold;
+                    _productRepo.quickSaveProduct(p);
                     _transactionDetailRepo.quickDeleteTransactionDetail(item);
                 }
+                _productRepo.saveContext();
                 _transactionDetailRepo.saveContext();
                 _transactionRepo.deleteTransaction(t);
                
