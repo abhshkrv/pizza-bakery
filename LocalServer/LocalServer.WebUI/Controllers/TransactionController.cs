@@ -357,8 +357,7 @@ namespace LocalServer.WebUI.Controllers
         public string deleteTransaction(string transactionID)
         {
             int id = Int32.Parse(transactionID);
-            
-            Transaction t = _transactionRepo.Transactions.First(t1 => t1.transactionID == id);
+            Transaction t = _transactionRepo.Transactions.FirstOrDefault(t1 => t1.transactionID == id);
 
             var productDictionary = _productRepo.Products.ToDictionary(p => p.barcode.ToString());
 
