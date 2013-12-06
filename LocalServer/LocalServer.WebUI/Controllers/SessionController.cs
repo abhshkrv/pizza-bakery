@@ -36,17 +36,24 @@ namespace LocalServer.WebUI.Controllers
                     ContentType = "application/json",
                 };
             }
-
-            CRSession old = _sessionRepo.Sessions.AsEnumerable().Last(s=>s.cashRegister == cashRegister);
-            if (old != null)
+            try
             {
-                if (old.endTime == null)
-                    Logout(old.userID, cashRegister);
+                CRSession old = _sessionRepo.Sessions.AsEnumerable().Last(s => s.cashRegister == cashRegister);
+
+
+                if (old != null)
+                {
+                    if (old.endTime == null)
+                        Logout(old.userID, cashRegister);
+                }
+            }
+            catch {
+                Console.WriteLine("No previous sesion");
             }
             CRSession session = new CRSession();
             session.cashRegister = cashRegister;
             session.userID = username;
-            
+
             session.startTime = DateTime.Now;
             _sessionRepo.saveSession(session);
 
@@ -86,7 +93,7 @@ namespace LocalServer.WebUI.Controllers
         {
             Dictionary<string, object> output = new Dictionary<string, object>();
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
-            
+
             output.Add("Employees", _employeeRepo.Employees.ToList());
 
             return new ContentResult()
