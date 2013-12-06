@@ -20,9 +20,9 @@ namespace LocalServer.Domain.Entities
         public int categoryID { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int manufacturerID { get; set; }
-        public float sellingPrice { get; set; }
+        public double sellingPrice { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public float maxPrice { get; set; }
+        public double maxPrice { get; set; }
         public int currentStock { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int minimumStock { get; set; }

@@ -5,13 +5,13 @@ namespace LocalServer.Domain.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class nullableNOT : IMigrationMetadata
+    public sealed partial class presicion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(nullableNOT));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(presicion));
         
         string IMigrationMetadata.Id
         {
-            get { return "201312032037533_nullableNOT"; }
+            get { return "201312060549108_presicion"; }
         }
         
         string IMigrationMetadata.Source

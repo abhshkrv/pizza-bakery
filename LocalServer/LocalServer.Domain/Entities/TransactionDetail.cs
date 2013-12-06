@@ -14,6 +14,6 @@ namespace LocalServer.Domain.Entities
         [Key, Column(Order = 2)]
         public string barcode { get; set; }
         public int unitSold { get; set; }
-        public float cost { get; set; }
+        public double cost { get; set; }
     }
 }

@@ -294,7 +294,7 @@ namespace LocalServer.WebUI.Controllers
         {
             
             public int quantity { get; set; }
-            public float unitPrice { get; set; }
+            public double unitPrice { get; set; }
         }
 
         public ContentResult sendSummary(string date)
