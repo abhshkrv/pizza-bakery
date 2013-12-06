@@ -19,7 +19,7 @@
      </tr>
      <tr>
         <td><b>Selling Price</b></td>
-         <td>@Model.product.sellingPrice $</td>
+         <td>@Model.product.sellingPrice.ToString("c") $</td>
      </tr>
      <tr>
         <td><b>Manufacturer</b></td>
@@ -35,7 +35,7 @@
      </tr>
      <tr>
         <td><b>Maximum Price</b></td>
-         <td>@Model.product.maxPrice $</td>
+         <td>@Model.product.maxPrice.ToString("c")</td>
      </tr> 
      <tr>
         <td><b>Bundle Unit</b></td>
