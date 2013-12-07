@@ -9,7 +9,8 @@ namespace LocalServer.Domain.Abstract
     public interface IPriceDisplayRepository
     {
         IQueryable<PriceDisplay> PriceDisplays { get; }
-        void savePriceDisplay(PriceDisplay priceDisplay);
+        void editPriceDisplay(PriceDisplay priceDisplay);
+        void addPriceDisplay(PriceDisplay priceDisplay);
         void deletePriceDisplay(PriceDisplay priceDisplay);
      }
 }

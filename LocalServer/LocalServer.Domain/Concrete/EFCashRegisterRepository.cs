@@ -19,16 +19,8 @@ namespace LocalServer.Domain.Concrete
 
         public void saveCashRegister(CashRegister CashRegister)
         {
-            if (CashRegister.cashRegisterID == 0)
-            {
                 context.CashRegisters.Add(CashRegister);
                 context.SaveChanges();
-            }
-            else
-            {
-                context.Entry(CashRegister).State = EntityState.Modified;
-                context.SaveChanges();
-            }
         }
 
         public void deleteCashRegister(CashRegister CashRegister)

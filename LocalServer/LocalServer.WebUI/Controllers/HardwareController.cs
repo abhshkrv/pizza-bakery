@@ -67,9 +67,9 @@ namespace LocalServer.WebUI.Controllers
                 priceDisplay.priceDisplayID = priceDisplayID;
                 priceDisplay.barcode = barcode;
                 priceDisplay.status = 1;
-                _priceDisplayRepo.savePriceDisplay(priceDisplay);
+                _priceDisplayRepo.addPriceDisplay(priceDisplay);
                 TempData["message"] = string.Format("{0} has been saved", priceDisplay.priceDisplayID);
-                return RedirectToAction("../Home/Index");
+                return RedirectToAction("listPriceDisplays");
             }
             else
             {
@@ -90,9 +90,9 @@ namespace LocalServer.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _priceDisplayRepo.savePriceDisplay(priceDisplay);
+                _priceDisplayRepo.editPriceDisplay(priceDisplay);
                 TempData["message"] = string.Format("{0} has been saved", priceDisplay.priceDisplayID);
-                return RedirectToAction("List");
+                return RedirectToAction("listPriceDisplays");
             }
             else
             {

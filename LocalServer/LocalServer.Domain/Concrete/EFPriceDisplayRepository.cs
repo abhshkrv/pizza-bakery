@@ -17,18 +17,17 @@ namespace LocalServer.Domain.Concrete
             get { return context.PriceDisplays; }
         }
 
-        public void savePriceDisplay(PriceDisplay PriceDisplay)
+        public void editPriceDisplay(PriceDisplay PriceDisplay)
         {
-            if (PriceDisplay.priceDisplayID == 0)
-            {
-                context.PriceDisplays.Add(PriceDisplay);
-                context.SaveChanges();
-            }
-            else
-            {
                 context.Entry(PriceDisplay).State = EntityState.Modified;
                 context.SaveChanges();
-            }
+        }
+
+        public void addPriceDisplay(PriceDisplay PriceDisplay)
+        {
+            context.PriceDisplays.Add(PriceDisplay);
+            context.SaveChanges();
+
         }
 
         public void deletePriceDisplay(PriceDisplay PriceDisplay)
