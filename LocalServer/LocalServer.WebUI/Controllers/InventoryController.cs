@@ -378,11 +378,34 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
-        public ActionResult getNewProducts()
+        public ActionResult updatePrices()
         {
+            string url = "http://hqserver.azurewebsites.net/shop/getNewPrices?shopID=1&Date=" + DateTime.Today.ToString("dd'/'mm'/'yyyy");
+            var request = WebRequest.Create(url);
+            request.ContentType = "application/json; charset=utf-8";
+            string text;
+            var response = (HttpWebResponse)request.GetResponse();
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            JObject raw = JObject.Parse(text);
+
+            var productArray = _productRepo.Products.ToArray();
+
+            foreach (var p in productArray)
+            {
+                p.sellingPrice = (decimal)raw[p.barcode];
+                _productRepo.quickSaveProduct(p);
+            }
+
+            _productRepo.saveContext();
 
             return View();
         }
+
 
         [HttpPost]
         public ActionResult Add(string barcode, string currentStock, string minimumStock, string bundleUnit, string discountPercentage)
