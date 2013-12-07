@@ -66,7 +66,7 @@ namespace LocalServer.WebUI.Controllers
                 product.currentStock = (int)p["currentStock"];
                 product.discountPercentage = (float)p["discountPercentage"];
                 //Change this to p["maxPrice"] later
-                product.maxPrice = (float)p["costPrice"];
+                product.maxPrice = (decimal)p["costPrice"];
                 product.minimumStock = (int)p["minimumStock"];
                 product.productName = (string)p["productName"];
                 product.sellingPrice = product.maxPrice;
@@ -107,7 +107,7 @@ namespace LocalServer.WebUI.Controllers
                 product.currentStock = (int)p["currentStock"];
                 product.discountPercentage = (float)p["discountPercentage"];
                 //Change this to p["maxPrice"] later
-                product.maxPrice = (float)p["costPrice"];
+                product.maxPrice = (decimal)p["costPrice"];
                 product.minimumStock = (int)p["minimumStock"];
                 product.productName = (string)p["productName"];
                 product.sellingPrice = product.maxPrice;
@@ -321,7 +321,7 @@ namespace LocalServer.WebUI.Controllers
         private string sendPost(string content)
         {
             HttpWebRequest httpWReq =
-        (HttpWebRequest)WebRequest.Create("http://hqserver.azurewebsites.net/shop/uploadOutletInventory");
+        (HttpWebRequest)WebRequest.Create("http://localhost:35980/shop/uploadOutletInventory");
 
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
@@ -360,7 +360,7 @@ namespace LocalServer.WebUI.Controllers
             JObject raw = JObject.Parse(text);
             JArray priceList = (JArray)raw["PriceList"];
 
-            Dictionary<string, float> priceDictionary = new Dictionary<string, float>();
+            Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
 
             foreach (var product in _productRepo.Products)
             {
@@ -416,7 +416,7 @@ namespace LocalServer.WebUI.Controllers
                     product.categoryID = (int)raw["Product"]["categoryID"];
                     product.minimumStock = (int)raw["Product"]["minimumStock"];
                     product.productName = (string)raw["Product"]["productName"];
-                    product.sellingPrice = (float)raw["Product"]["costPrice"];
+                    product.sellingPrice = (decimal)raw["Product"]["costPrice"];
                     _productRepo.saveProduct(product);
                     TempData["Result"] = "Success";
                     return View();

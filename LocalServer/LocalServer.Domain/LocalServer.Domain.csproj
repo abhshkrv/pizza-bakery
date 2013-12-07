@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201312061027162_newDB.Designer.cs">
       <DependentUpon>201312061027162_newDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312070334145_decimal.cs" />
+    <Compile Include="Migrations\201312070334145_decimal.Designer.cs">
+      <DependentUpon>201312070334145_decimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -101,6 +105,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201312061027162_newDB.resx">
       <DependentUpon>201312061027162_newDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312070334145_decimal.resx">
+      <DependentUpon>201312070334145_decimal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

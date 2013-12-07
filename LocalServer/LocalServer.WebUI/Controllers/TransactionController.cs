@@ -294,7 +294,7 @@ namespace LocalServer.WebUI.Controllers
         {
             
             public int quantity { get; set; }
-            public double unitPrice { get; set; }
+            public decimal unitPrice { get; set; }
         }
 
         public ContentResult sendSummary(string date)
@@ -386,7 +386,7 @@ namespace LocalServer.WebUI.Controllers
         private string sendPost(string content)
         {
             HttpWebRequest httpWReq =
-        (HttpWebRequest)WebRequest.Create("http://pizza-hq.azurewebsites.net/shop/uploadtransactions");
+        (HttpWebRequest)WebRequest.Create("http://localhost:35980/shop/uploadtransactions");
 
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
