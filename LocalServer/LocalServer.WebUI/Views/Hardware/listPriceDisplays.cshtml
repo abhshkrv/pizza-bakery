@@ -1,5 +1,14 @@
 ﻿@model LocalServer.WebUI.Models.PriceDisplayListViewModel
 
+@{
+    ViewBag.Title = "listPriceDisplays";
+}
+
+
+<h2>Price Displays</h2>
+
+<p>@Html.ActionLink("Add a new price display unit", "Create")</p>
+
 <table class="Grid">
     <tr>
         <th>
@@ -8,8 +17,8 @@
         <th>
             Barcode
         </th>
-         <th>
-            Status
+        <th>
+            Actions
         </th>
         
     </tr>
@@ -21,14 +30,9 @@
         
         <td>@item.priceDisplayID</td>
         <td>@item.barcode</td>
-        <td>@item.status</td>
-        <td ></td>
+        <td>@Html.ActionLink("Edit", "Edit", new { item.priceDisplayID })</td>
         
     </tr>
     }
       
-}@{
-    ViewBag.Title = "listPriceDisplays";
 }
-
-<h2>listPriceDisplays</h2>

@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BatchController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HardwareController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\MailController.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Models\PriceDisplayListViewModel.cs" />
     <Compile Include="Models\ProductsDetailsViewModel.cs" />
     <Compile Include="Models\ProductsListViewModel.cs" />
+    <Compile Include="Models\SessionListViewModel.cs" />
     <Compile Include="Models\TransactionDetailsViewModel.cs" />
     <Compile Include="Models\TransactionListViewModel.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
@@ -257,6 +259,11 @@
     <Content Include="Views\Mail\SampleEmail.html.cshtml" />
     <Content Include="Views\Batch\send.cshtml" />
     <Content Include="Views\Batch\create.cshtml" />
+    <Content Include="Views\Session\List.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Hardware\Edit.cshtml" />
+    <Content Include="Views\Hardware\Create.cshtml" />
+    <Content Include="Views\Hardware\AddCashRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

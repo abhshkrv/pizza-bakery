@@ -1,5 +1,6 @@
 ﻿using LocalServer.Domain.Abstract;
 using LocalServer.Domain.Entities;
+using LocalServer.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,14 @@ namespace LocalServer.WebUI.Controllers
         {
             _sessionRepo = srepo;
             _employeeRepo = erepo;
+        }
+
+        public ViewResult List()
+        {
+            SessionListViewModel viewModel = new SessionListViewModel{
+                Sessions = _sessionRepo.Sessions.OrderBy(s => s.CRsessionID)
+            };
+            return View(viewModel);
         }
 
         [HttpPost]

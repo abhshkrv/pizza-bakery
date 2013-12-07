@@ -1,4 +1,5 @@
 ﻿using LocalServer.Domain.Abstract;
+using LocalServer.Domain.Entities;
 using LocalServer.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,83 @@ namespace LocalServer.WebUI.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(int priceDisplayID = 0, string barcode = null)
+        {
+            PriceDisplay priceDisplay = new PriceDisplay();
+
+            if (ModelState.IsValid)
+            {
+
+                priceDisplay.priceDisplayID = priceDisplayID;
+                priceDisplay.barcode = barcode;
+                priceDisplay.status = 1;
+                _priceDisplayRepo.savePriceDisplay(priceDisplay);
+                TempData["message"] = string.Format("{0} has been saved", priceDisplay.priceDisplayID);
+                return RedirectToAction("../Home/Index");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(priceDisplay);
+            }
+
+
+        }
+
+        public ViewResult Edit(int priceDisplayID)
+        {
+            PriceDisplay priceDisplay = _priceDisplayRepo.PriceDisplays.FirstOrDefault(p => p.priceDisplayID==priceDisplayID);
+            return View(priceDisplay);
+        }
+        [HttpPost]
+        public ActionResult Edit(PriceDisplay priceDisplay)
+        {
+            if (ModelState.IsValid)
+            {
+                _priceDisplayRepo.savePriceDisplay(priceDisplay);
+                TempData["message"] = string.Format("{0} has been saved", priceDisplay.priceDisplayID);
+                return RedirectToAction("List");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(priceDisplay);
+            }
+        }
+
+       public ViewResult AddCashRegister()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddCashRegister(int cashRegisterID=0)
+        {
+            CashRegister cashRegister = new CashRegister();
+
+            if (ModelState.IsValid)
+            {
+
+                cashRegister.cashRegisterID = cashRegisterID;
+                cashRegister.status = 1;
+                _cashRegisterRepo.saveCashRegister(cashRegister);
+                TempData["message"] = string.Format("{0} has been saved", cashRegister.cashRegisterID);
+                return RedirectToAction("listCashRegisters");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(cashRegister);
+            }
+
+
+        }
+
 
     }
 }

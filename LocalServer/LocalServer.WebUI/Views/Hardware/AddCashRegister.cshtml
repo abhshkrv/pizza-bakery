@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "AddCashRegister";
+}
+
+<h2>Add cash register</h2>
+@using (Html.BeginForm("AddCashRegister","Hardware")) {
+    
+        <div>
+        <fieldset>
+            <legend>Add price display unit</legend>
+
+            <div class="editor-label">
+                @Html.Label("cashRegisterID", "cashRegisterID")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("cashRegisterID")
+            </div>
+
+            
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </div>
+}
+@Html.ActionLink("Cancel and return to list", "listCashRegisters")
+
+    

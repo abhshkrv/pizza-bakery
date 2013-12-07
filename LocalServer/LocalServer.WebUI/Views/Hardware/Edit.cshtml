@@ -1,0 +1,20 @@
+﻿@using LocalServer.Domain.Entities
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit","Hardware")) {
+    
+        <div>
+        <fieldset>
+            <legend>Edit @Model.priceDisplayID</legend>
+
+            @Html.EditorForModel()
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </div>
+}
+@Html.ActionLink("Cancel and return to List", "List")
+

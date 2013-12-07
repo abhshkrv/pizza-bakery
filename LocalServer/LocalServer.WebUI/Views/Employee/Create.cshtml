@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create","Employee")) {
+    
+        <div>
+        <fieldset>
+            <legend>Add employee</legend>
+
+            <div class="editor-label">
+                @Html.Label("hashID", "hashID")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("hashID")
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("role", "role")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("role")
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("userID", "userID")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("userID")
+            </div>
+
+             <div class="editor-label">
+                @Html.Label("password", "password")
+            </div>
+            <div class="editor-field">
+                @Html.Editor("password")
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </div>
+}
+@Html.ActionLink("Cancel and return to home", "../Home/Index")

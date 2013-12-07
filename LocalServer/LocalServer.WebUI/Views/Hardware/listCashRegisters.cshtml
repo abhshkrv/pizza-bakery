@@ -1,5 +1,10 @@
 ﻿@model LocalServer.WebUI.Models.CashRegisterListViewModel
+ @{
+    ViewBag.Title = "listCashRegisters";
+}
 
+<h2>Cash Registers</h2>
+@Html.ActionLink("Add a new cash register", "AddCashRegister")</p>
 <table class="Grid">
     <tr>
         <th>
@@ -19,13 +24,8 @@
         
         <td>@item.cashRegisterID</td>
         <td>@item.status</td>
-        <td ></td>
         
     </tr>
     }
       
-}@{
-    ViewBag.Title = "listCashRegisters";
 }
-
-<h2>listCashRegisters</h2>

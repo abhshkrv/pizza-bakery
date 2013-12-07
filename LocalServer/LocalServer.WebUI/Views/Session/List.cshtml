@@ -1,0 +1,41 @@
+﻿@using LocalServer.WebUI.Models
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cash Register Sessions</h2>
+
+
+
+<table class="Grid">
+    <tr>
+
+        <th>
+            Cash Register
+        </th>
+        <th>
+            User ID
+        </th>
+        <th>
+           Start time
+        </th>
+        
+        <th>End time</th>
+    </tr>
+@{ 
+  foreach (var item in Model.Sessions) {
+
+    <tr>
+        <td>@item.cashRegister</td>
+        <td>@item.userID</td>
+        <td>@item.startTime</td>
+        <td>@item.endTime</td>
+    </tr>
+ 
+}
+}
+
+</table>
+
