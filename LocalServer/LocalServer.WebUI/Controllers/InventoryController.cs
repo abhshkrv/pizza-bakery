@@ -322,7 +322,7 @@ namespace LocalServer.WebUI.Controllers
         {
             HttpWebRequest httpWReq =
         (HttpWebRequest)WebRequest.Create("http://localhost:35980/shop/uploadOutletInventory");
-
+            httpWReq.Timeout = 300000;
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
             postData += content;
@@ -380,7 +380,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult updatePrices()
         {
-            string url = "http://hqserver.azurewebsites.net/shop/getNewPrices?shopID=1&Date=" + DateTime.Today.ToString("dd'/'mm'/'yyyy");
+            string url = "http://localhost:35980//shop/getNewPrices?shopID=1&Date=06/12/2013";// + DateTime.Now.AddDays(-1).ToString("dd'/'mm'/'yyyy");
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;

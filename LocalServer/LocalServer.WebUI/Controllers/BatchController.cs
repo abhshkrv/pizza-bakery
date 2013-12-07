@@ -44,10 +44,6 @@ namespace LocalServer.WebUI.Controllers
                 batchRequestDetail.batchRequestID = batchRequest.batchRequestID;
                 batchRequestDetail.barcode = product.barcode;
                 batchRequestDetail.quantity = Int32.Parse(qty);
-
-
-                
-
                 return View();
             }
         }
