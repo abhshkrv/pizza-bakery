@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBatchDispatchDetailRepository.cs" />
+    <Compile Include="Abstract\IBatchDispatchRepository.cs" />
     <Compile Include="Abstract\IEmployeeRepository.cs" />
     <Compile Include="Abstract\ISessionRepository.cs" />
     <Compile Include="Abstract\IPriceDisplayRepository.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Abstract\ITransactionDetailRepository.cs" />
     <Compile Include="Abstract\ITransactionRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Concrete\BatchDispatchRepository.cs" />
+    <Compile Include="Concrete\EFBatchDispatchRepository.cs" />
     <Compile Include="Concrete\EFEmployeeRepository.cs" />
     <Compile Include="Concrete\EFSessionRepository.cs" />
     <Compile Include="Concrete\EFPriceDisplayRepository.cs" />
@@ -80,6 +84,8 @@
     <Compile Include="Entities\BatchRequestDetail.cs" />
     <Compile Include="Entities\CashRegister.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\BatchDispatch.cs" />
+    <Compile Include="Entities\BatchDispatchDetail.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\PriceDisplay.cs" />
@@ -99,6 +105,10 @@
     <Compile Include="Migrations\201312082133493_activePricing.Designer.cs">
       <DependentUpon>201312082133493_activePricing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312082303557_dispatch.cs" />
+    <Compile Include="Migrations\201312082303557_dispatch.Designer.cs">
+      <DependentUpon>201312082303557_dispatch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312082133493_activePricing.resx">
       <DependentUpon>201312082133493_activePricing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312082303557_dispatch.resx">
+      <DependentUpon>201312082303557_dispatch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

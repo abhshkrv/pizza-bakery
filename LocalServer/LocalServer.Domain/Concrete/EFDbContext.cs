@@ -13,6 +13,8 @@ namespace LocalServer.Domain.Concrete
     {
         public DbSet<BatchRequest> BatchRequests { get; set; }
         public DbSet<BatchRequestDetail> BatchRequestDetails { get; set; }
+        public DbSet<BatchDispatch> BatchDispatchs { get; set; }
+        public DbSet<BatchDispatchDetail> BatchDispatchDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CashRegister> CashRegisters { get; set; }
         public DbSet<Employee> Employees { get; set; }

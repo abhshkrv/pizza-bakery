@@ -1,8 +1,10 @@
 ﻿using LocalServer.Domain.Abstract;
 using LocalServer.Domain.Entities;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -83,6 +85,40 @@ namespace LocalServer.WebUI.Controllers
             _batchRequestRepo.saveBatchRequest(br);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult receiveStock()
+        {
+            string url = "http://newdata.blob.core.windows.net/stock/stock1.txt";
+            var request = WebRequest.Create(url);
+            request.ContentType = "application/json; charset=utf-8";
+            string text;
+            var response = (HttpWebResponse)request.GetResponse();
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            
+            JObject raw = JObject.Parse(text);
+            //JArray priceList = (JArray)raw["PriceList"];
+            var prodcutArray = _productRepo.Products.ToArray();
+            //Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
+            var updates = new List<string>();
+            foreach (var item in prodcutArray)
+            {
+                if ((string)raw[item.barcode] != null)
+                {
+                    item.sellingPrice = (decimal)raw[item.barcode];
+                    _productRepo.quickSaveProduct(item);
+                    updates.Add(item.barcode + " : " + item.sellingPrice);
+                }
+            }
+            _productRepo.saveContext();
+
+            return View(updates);
+        
         }
 
         //
