@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "HQUpload";
+}
+
+<h2>HQ Upload</h2>
+
+<h3>@TempData["Results"]</h3>
+
+Format - dd/mm/yyyy
+@using(Html.BeginForm("sendSummary","Transaction",FormMethod.Get))
+    {
+    @Html.Label("date", "date"); @Html.Editor("date");<br />
+  <input type="submit" value="Search" />
+    }

@@ -308,6 +308,12 @@ namespace LocalServer.WebUI.Controllers
             public decimal unitPrice { get; set; }
         }
 
+        [HttpGet]
+        public ActionResult HQUpload()
+        {
+            return View();
+        }
+
         public ContentResult sendSummary(string date)
         {
             DateTime inDate = new DateTime();

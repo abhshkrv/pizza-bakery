@@ -115,16 +115,27 @@ namespace LocalServer.WebUI.Controllers
                 productDictionary.Add(product.barcode, product);
             }
 
-            foreach (var p in _productRepo.Products)
+            List<string> discontinuedProducts = new List<string>();
+
+            var localProductlist = _productRepo.Products.ToArray();
+            foreach (var p in localProductlist)
             {
-                Product nP = productDictionary[p.barcode];
-                p.bundleUnit = nP.bundleUnit;
-                p.categoryID = nP.categoryID;
-                p.manufacturerID = nP.manufacturerID;
-                p.maxPrice = nP.maxPrice;
-                p.minimumStock = nP.minimumStock;
-                p.productName = nP.productName;
-                _productRepo.quickSaveProduct(p);
+                if (productDictionary.ContainsKey(p.barcode))
+                {
+                    Product nP = productDictionary[p.barcode];
+                    p.bundleUnit = nP.bundleUnit;
+                    p.categoryID = nP.categoryID;
+                    p.manufacturerID = nP.manufacturerID;
+                    p.maxPrice = nP.maxPrice;
+                    p.minimumStock = nP.minimumStock;
+                    p.productName = nP.productName;
+                    _productRepo.quickSaveProduct(p);
+                }
+                else
+                {
+                    discontinuedProducts.Add(p.barcode + " - " + p.productName);
+                    _productRepo.deleteProduct(p);
+                }
             }
 
             Dictionary<string, Product> currentProductDictionary = _productRepo.Products.ToDictionary(p => p.barcode);
@@ -141,7 +152,7 @@ namespace LocalServer.WebUI.Controllers
             _productRepo.saveContext();
 
 
-            return View();
+            return View(discontinuedProducts);
         }
 
         public ActionResult SyncCategories()

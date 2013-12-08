@@ -6,4 +6,11 @@
 
 <h3>
     The Products have been synced with the HQ.
+    <br />
+    Discontinued products - 
+    @foreach (var item in Model)
+    { 
+        <br />
+        @item
+    }
 </h3>
