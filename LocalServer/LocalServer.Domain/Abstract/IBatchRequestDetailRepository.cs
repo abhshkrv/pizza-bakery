@@ -11,6 +11,8 @@ namespace LocalServer.Domain.Abstract
     {
         IQueryable<BatchRequestDetail> BatchRequestDetails { get; }
         void saveBatchRequestDetail(BatchRequestDetail batchRequestDetail);
+        void quickSaveBatchRequestDetail(BatchRequestDetail batchRequestDetail);
+        void saveContext();
         void deleteBatchRequestDetail(BatchRequestDetail batchRequestDetail);
     }
 }

@@ -264,6 +264,8 @@
     <Content Include="Views\Hardware\Edit.cshtml" />
     <Content Include="Views\Hardware\Create.cshtml" />
     <Content Include="Views\Hardware\AddCashRegister.cshtml" />
+    <Content Include="Views\Batch\Index.cshtml" />
+    <Content Include="Views\Batch\ViewDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

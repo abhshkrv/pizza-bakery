@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<h3>
+    @TempData["Result"]
+</h3>
+
+<table>
+    <tr>
+        <th>ID
+        </th>
+        <th>TimeStamp
+        </th>
+        <th>Status
+        </th>
+    </tr>
+@foreach (var item in Model)
+{ 
+    <tr>
+        <td>
+            <a href="/batch/viewDetail?batchRequestID=@item.batchRequestID">@item.batchRequestID</a>
+        </td>
+        <td>
+            @item.timeStamp
+        </td>
+        <td>
+            @item.status
+        </td>
+    </tr>
+}
+</table>

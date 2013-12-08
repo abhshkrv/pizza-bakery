@@ -2,6 +2,7 @@
 using LocalServer.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -17,7 +18,16 @@ namespace LocalServer.Domain.Concrete
 
         public void saveBatchRequest(BatchRequest batchRequest)
         {
-
+            if (batchRequest.batchRequestID == 0)
+            {
+                context.BatchRequests.Add(batchRequest);
+                context.SaveChanges();
+            }
+            else
+            {
+                context.Entry(batchRequest).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
 
         public void deleteBatchRequest(BatchRequest batchRequest)

@@ -17,7 +17,19 @@ namespace LocalServer.Domain.Concrete
 
         public void saveBatchRequestDetail(BatchRequestDetail BatchRequestDetail)
         {
-                       
+            context.BatchRequestDetails.Add(BatchRequestDetail);
+            context.SaveChanges();
+        }
+
+        public void quickSaveBatchRequestDetail(BatchRequestDetail BatchRequestDetail)
+        {
+            context.BatchRequestDetails.Add(BatchRequestDetail);
+           // context.SaveChanges();
+        }
+
+        public void saveContext()
+        {
+            context.SaveChanges();
         }
 
         public void deleteBatchRequestDetail(BatchRequestDetail BatchRequestDetail)
