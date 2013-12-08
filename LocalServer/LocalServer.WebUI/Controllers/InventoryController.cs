@@ -326,7 +326,7 @@ namespace LocalServer.WebUI.Controllers
 
         }
 
-        public ContentResult sendInventory()
+        public ActionResult sendInventory()
         {
             var inventory = _productRepo.Products.ToList();
 
@@ -337,14 +337,24 @@ namespace LocalServer.WebUI.Controllers
             output.Add("Inventory", data);
 
             var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
+            try
+            {
 
-            sendPost(serializer.Serialize(output));
+                sendPost(serializer.Serialize(output));
+                return View();
+            }
+            catch
+            {
+                TempData["Result"] = "The connection was reset because of a timeout.Don't worry the products are being updated in the background.Please check again after a few minutes.";
+                return RedirectToAction("../Home/Index");
 
-            return new ContentResult()
+            }
+
+           /* return new ContentResult()
             {
                 Content = serializer.Serialize(output),
                 ContentType = "application/json",
-            };
+            }; */
 
         }
 
