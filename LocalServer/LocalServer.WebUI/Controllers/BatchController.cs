@@ -17,9 +17,12 @@ namespace LocalServer.WebUI.Controllers
         IBatchRequestRepository _batchRequestRepo;
         IProductRepository _productRepo;
         IBatchRequestDetailRepository _batchRequestDetailRepo;
-        public BatchController(IBatchRequestRepository brepo, IBatchRequestDetailRepository bdrepo, IProductRepository prepo)
+        IBatchDispatchRepository _batchDispatchRepo;
+        IBatchDispatchDetailRepository _batchDispatchDetailRepo;
+        public BatchController(IBatchRequestRepository brepo, IBatchRequestDetailRepository bdrepo, IProductRepository prepo, IBatchDispatchDetailRepository bdd, IBatchDispatchRepository ib)
         {
-
+            _batchDispatchDetailRepo = bdd;
+            _batchDispatchRepo = ib;
             _productRepo = prepo;
             _batchRequestRepo = brepo;
             _batchRequestDetailRepo = bdrepo;
@@ -100,25 +103,78 @@ namespace LocalServer.WebUI.Controllers
                 text = sr.ReadToEnd();
             }
 
+
             
             JObject raw = JObject.Parse(text);
             //JArray priceList = (JArray)raw["PriceList"];
             var prodcutArray = _productRepo.Products.ToArray();
             //Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
             var updates = new List<string>();
+
+            BatchDispatch batchDispatch = new BatchDispatch();
+            batchDispatch.status = 1;
+            batchDispatch.timeStamp = DateTime.Now;
+
+            try
+            {
+                _batchDispatchRepo.saveBatchDispatch(batchDispatch);
+            }
+            catch {
+                ;
+            }
+            
             foreach (var item in prodcutArray)
             {
+                BatchDispatchDetail bdd = new BatchDispatchDetail();
                 if ((string)raw[item.barcode] != null)
                 {
-                    item.sellingPrice = (decimal)raw[item.barcode];
+                    item.currentStock = (int)raw[item.barcode];
+                    item.temporaryStock = item.currentStock;
+                    item.afterUpdateStock = item.currentStock;
                     _productRepo.quickSaveProduct(item);
-                    updates.Add(item.barcode + " : " + item.sellingPrice);
+                    updates.Add(item.barcode + " : " + item.currentStock);
+                    try
+                    {
+                        bdd.barcode = item.barcode;
+                        bdd.quantity = item.currentStock;
+                        bdd.batchDispatchID = batchDispatch.batchDispatchID;
+                        _batchDispatchDetailRepo.quickSaveBatchDispatchDetail(bdd);
+                    }
+                    catch {
+
+                        ;
+                    }
                 }
             }
+            _batchDispatchDetailRepo.saveContext();
             _productRepo.saveContext();
 
             return View(updates);
-        
+        }
+
+        public ActionResult viewDispatches()
+        {
+            var bd = _batchDispatchRepo.BatchDispatchs.ToList();
+            return View(bd);
+        }
+
+        public ActionResult viewDispatchDetails(string batchDispatchID)
+        {
+            try
+            {
+                int id = Int32.Parse(batchDispatchID);
+                var items = _batchDispatchDetailRepo.BatchDispatchDetails.Where(b => b.batchDispatchID == id).ToList();
+                var result = new List<String>();
+                foreach (var item in items)
+                {
+                    result.Add(item.barcode + " | " + item.quantity);
+                }
+                return View(items);
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //
