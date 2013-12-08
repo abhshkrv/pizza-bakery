@@ -28,5 +28,9 @@ namespace LocalServer.Domain.Entities
         public int minimumStock { get; set; }
         public int bundleUnit { get; set; }
         public float discountPercentage { get; set; }
+
+        public int temporaryStock { get; set; }
+        public int afterUpdateStock { get; set; }
+
     }
 }

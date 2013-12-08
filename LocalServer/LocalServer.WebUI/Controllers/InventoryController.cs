@@ -386,7 +386,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult getNewActivePrices()
         {
-            string url = "http://hqserver.azurewebsites.net/shop/getNewPrices?shopID=46";
+            string url = "http://newdata.blob.core.windows.net/stock/prices.txt";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -399,14 +399,15 @@ namespace LocalServer.WebUI.Controllers
 
             JObject raw = JObject.Parse(text);
             JArray priceList = (JArray)raw["PriceList"];
+            var prodcutArray = _productRepo.Products.ToArray();
+            //Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
 
-            Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
-
-            foreach (var product in _productRepo.Products)
+            foreach (var item in prodcutArray)
             {
-                product.sellingPrice = priceDictionary[product.barcode];
-
-                _productRepo.quickSaveProduct(product);
+                if ((string)raw[item.barcode] != null)
+                {
+                    item.sellingPrice = (decimal)raw[item.barcode];
+                }
             }
             _productRepo.saveContext();
 
