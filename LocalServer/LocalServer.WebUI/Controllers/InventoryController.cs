@@ -78,7 +78,7 @@ namespace LocalServer.WebUI.Controllers
             return View();
         }
 
-        public string RefreshProducts()
+        public ActionResult RefreshProducts()
         {
 
             string url = "http://hqserver.azurewebsites.net/shop/getFullInventoryList";
@@ -141,7 +141,7 @@ namespace LocalServer.WebUI.Controllers
             _productRepo.saveContext();
 
 
-            return "Success";
+            return View();
         }
 
         public ActionResult SyncCategories()

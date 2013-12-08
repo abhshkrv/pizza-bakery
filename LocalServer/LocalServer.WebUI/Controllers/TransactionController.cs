@@ -232,6 +232,10 @@ namespace LocalServer.WebUI.Controllers
                     Product p = _productRepo.Products.FirstOrDefault(pd => pd.barcode == transactionDetail.barcode);
                     transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
                     p.currentStock -= transactionDetail.unitSold;
+                    if (p.currentStock <= p.minimumStock && p.currentStock+transactionDetail.unitSold > p.minimumStock)
+                    {
+                       // sendNotificationEmail(p.productName, p.barcode);
+                    }
                     
                     if (p.currentStock >= 0)
                     {
@@ -255,6 +259,13 @@ namespace LocalServer.WebUI.Controllers
             }
         }
 
+     /*   private void sendNotificationEmail(string productName, string barcode)
+        {
+            
+            new MailController().SampleEmail(viewModel, barcode + " Out of stock" ).DeliverAsync();
+
+         }
+        */
         [HttpGet]
         public string sendTransactionEmail(string customerID,int transactionID)
         {
