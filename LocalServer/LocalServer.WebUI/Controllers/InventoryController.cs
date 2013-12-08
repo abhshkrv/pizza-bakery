@@ -340,7 +340,7 @@ namespace LocalServer.WebUI.Controllers
         private string sendPost(string content)
         {
             HttpWebRequest httpWReq =
-        (HttpWebRequest)WebRequest.Create("http://localhost:35980/shop/uploadOutletInventory");
+        (HttpWebRequest)WebRequest.Create("http://hqserver.azurewebsites.net/shop/uploadOutletInventory");
             httpWReq.Timeout = 300000;
             ASCIIEncoding encoding = new ASCIIEncoding();
             string postData = "input=";
@@ -490,6 +490,7 @@ namespace LocalServer.WebUI.Controllers
                 return View();
             }
         }
+
 
     }
 }
