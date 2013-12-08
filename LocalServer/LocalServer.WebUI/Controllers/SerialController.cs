@@ -12,11 +12,13 @@ namespace LocalServer.WebUI.Controllers
     {
         IProductRepository _productRepo;
         IPriceDisplayRepository _priceRepo;
+        ICashRegisterRepository _cashRepo;
 
-         public SerialController(IProductRepository productRepo, IPriceDisplayRepository priceRepo)
+         public SerialController(IProductRepository productRepo, IPriceDisplayRepository priceRepo, ICashRegisterRepository cr)
          {
              _productRepo = productRepo;
              _priceRepo = priceRepo;
+             _cashRepo = cr;
          }
         
         public ContentResult Product()
@@ -34,6 +36,22 @@ namespace LocalServer.WebUI.Controllers
                 ContentType = "application/json",
             };
            
+        }
+
+        public ContentResult CashRegisters()
+        {
+            var cashRegisters = _cashRepo.CashRegisters;
+            Dictionary<string, object> output = new Dictionary<string, object>();
+            output.Add("CashRegisters", cashRegisters);
+
+
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 };
+
+            return new ContentResult()
+            {
+                Content = serializer.Serialize(output),
+                ContentType = "application/json",
+            };
         }
 
         public ContentResult PriceDisplays()
