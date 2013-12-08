@@ -386,7 +386,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult getNewActivePrices()
         {
-            string url = "http://newdata.blob.core.windows.net/stock/prices.txt";
+            string url = "http://newdata.blob.core.windows.net/stock/prices1.txt";
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -401,17 +401,19 @@ namespace LocalServer.WebUI.Controllers
             JArray priceList = (JArray)raw["PriceList"];
             var prodcutArray = _productRepo.Products.ToArray();
             //Dictionary<string, decimal> priceDictionary = new Dictionary<string, decimal>();
-
+            var updates = new List<string>();
             foreach (var item in prodcutArray)
             {
                 if ((string)raw[item.barcode] != null)
                 {
                     item.sellingPrice = (decimal)raw[item.barcode];
+                    _productRepo.quickSaveProduct(item);
+                    updates.Add(item.barcode + " : " + item.sellingPrice);
                 }
             }
             _productRepo.saveContext();
 
-            return View();
+            return View(updates);
         }
 
         public ActionResult addProduct()
