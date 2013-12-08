@@ -462,9 +462,6 @@ namespace LocalServer.WebUI.Controllers
                 sendSummary("28/09/2013");
                 sendSummary("29/09/2013");
 
-
-            //http://localhost:1824/Transaction/sendSummary?date=29/09/2013
-
                 return "SUCCESS";
         }
 
