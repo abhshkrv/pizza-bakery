@@ -432,16 +432,7 @@ namespace LocalServer.WebUI.Controllers
 
             public string uploadAllTransactions(){
 
-                sendSummary("01/09/2013");
-                sendSummary("02/09/2013");
-                sendSummary("03/09/2013");
-                sendSummary("04/09/2013");
-                sendSummary("05/09/2013");
-                sendSummary("06/09/2013");
-                sendSummary("07/09/2013");
-                sendSummary("08/09/2013");
-                sendSummary("09/09/2013");
-                sendSummary("10/09/2013");
+
                 sendSummary("11/09/2013");
                 sendSummary("12/09/2013");
                 sendSummary("13/09/2013");

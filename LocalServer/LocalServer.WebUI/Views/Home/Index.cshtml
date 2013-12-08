@@ -2,16 +2,21 @@
     ViewBag.Title = "Home Page";
 }
 
-<h3>Welcome</h3>
+<h3><u>Welcome</u></h3>
 <p>
+    <h4>Inventory:-</h4>
     <h5>@Html.ActionLink("View Product List", "../Inventory/List")</h5>
     <h5>@Html.ActionLink("View Transaction List", "../Transaction/List")</h5>
     <h5>@Html.ActionLink("Product Search", "../Inventory/Search")</h5>
     <h5>@Html.ActionLink("Transaction Search", "../Transaction/Search")</h5><hr />
+
+    <h4>HQ Server Communication:-</h4>
     <h5>@Html.ActionLink("Upload Transaction File", "../Transaction/Upload")</h5>
     <h5>@Html.ActionLink("Send Transactions", "../Transaction/HQUpload")</h5>
     <h5>@Html.ActionLink("Send Inventory List", "../Inventory/sendInventory")</h5>
     <h5>@Html.ActionLink("Update Inventory List", "../Inventory/refreshProducts")</h5><hr />
+
+    <h4>Hardware:-</h4>
     <h5>@Html.ActionLink("View Cashier Sessions", "../Session/List")</h5>
     <h5>@Html.ActionLink("Register New Employee", "../Employee/Create")</h5>
     <h5>@Html.ActionLink("Add Cash Register Units", "../Hardware/listCashRegisters")</h5>
