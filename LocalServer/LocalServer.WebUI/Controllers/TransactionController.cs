@@ -231,6 +231,10 @@ namespace LocalServer.WebUI.Controllers
                     i++;
                     Product p = _productRepo.Products.FirstOrDefault(pd => pd.barcode == transactionDetail.barcode);
                     transactionDetail.cost = p.sellingPrice * transactionDetail.unitSold;
+                    transactionDetail.cost = (decimal)(((double)transactionDetail.cost)*((100-p.discountPercentage/100.0)));
+                    if (transactionDetail.unitSold > p.bundleUnit)
+                        transactionDetail.cost = (decimal)(0.9 * (double)transactionDetail.cost);
+                    
                     p.currentStock -= transactionDetail.unitSold;
                     if (p.currentStock <= p.minimumStock && p.currentStock+transactionDetail.unitSold > p.minimumStock)
                     {
