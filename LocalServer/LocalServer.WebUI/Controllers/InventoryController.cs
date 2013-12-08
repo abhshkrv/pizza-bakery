@@ -129,10 +129,10 @@ namespace LocalServer.WebUI.Controllers
 
             Dictionary<string, Product> currentProductDictionary = _productRepo.Products.ToDictionary(p => p.barcode);
 
-            foreach ( var invprod in productDictionary)
+            foreach (var invprod in productDictionary)
             {
                 Product inp = invprod.Value;
-                if(!currentProductDictionary.ContainsKey(inp.barcode))
+                if (!currentProductDictionary.ContainsKey(inp.barcode))
                 {
                     _productRepo.saveProduct(inp);
                 }
@@ -231,25 +231,44 @@ namespace LocalServer.WebUI.Controllers
             return View(viewModel);
         }
 
-        public ViewResult Details(int productId)
+        public ActionResult Details(int productId)
         {
+            try
+            {
+                ProductsDetailsViewModel viewModel = new ProductsDetailsViewModel();
+                viewModel.product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
+                viewModel.manufacturer = _manufacturerRepo.Manufacturers.FirstOrDefault(m => m.manufacturerID == viewModel.product.manufacturerID);
+                viewModel.category = _categoryRepo.Categories.FirstOrDefault(c => c.categoryID == viewModel.product.categoryID);
 
-            ProductsDetailsViewModel viewModel = new ProductsDetailsViewModel();
-            viewModel.product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
-            viewModel.manufacturer = _manufacturerRepo.Manufacturers.FirstOrDefault(m => m.manufacturerID == viewModel.product.manufacturerID);
-            viewModel.category = _categoryRepo.Categories.FirstOrDefault(c => c.categoryID == viewModel.product.categoryID);
-
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch
+            {
+                TempData["message"] = string.Format("Product has been deleted");
+                return RedirectToAction("List");
+            }
         }
 
-        public ViewResult Edit(int productId)
+        public ActionResult Edit(int productId)
         {
-            Product product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
-            return View(product);
+            try
+            {
+                Product product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
+                return View(product);
+            }
+            catch {
+                TempData["message"] = string.Format("Product has been deleted");
+                return RedirectToAction("List");
+            }
         }
         [HttpPost]
         public ActionResult Edit(Product product)
         {
+            if (product.bundleUnit < 0 || product.barcode.Length < 8 || product.currentStock < 0 || product.sellingPrice < 0 || product.sellingPrice > product.maxPrice)
+            {
+                TempData["message"] = "Error adding product, there are invalid fields";
+                return View(product);
+            }
             if (ModelState.IsValid)
             {
                 _productRepo.saveProduct(product);
@@ -380,7 +399,7 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult updatePrices()
         {
-            string url = "http://localhost:35980//shop/getNewPrices?shopID=1&Date=06/12/2013";// + DateTime.Now.AddDays(-1).ToString("dd'/'mm'/'yyyy");
+            string url = "http://localhost:35980/shop/getNewPrices?shopID=1&Date=06/12/2013";// + DateTime.Now.AddDays(-1).ToString("dd'/'mm'/'yyyy");
             var request = WebRequest.Create(url);
             request.ContentType = "application/json; charset=utf-8";
             string text;
@@ -412,13 +431,27 @@ namespace LocalServer.WebUI.Controllers
         {
 
             Product product = new Product();
-            product.barcode = barcode;
-            product.currentStock = Int32.Parse(currentStock);
-            product.minimumStock = Int32.Parse(minimumStock);
-            product.bundleUnit = Int32.Parse(bundleUnit);
-            product.discountPercentage = float.Parse(discountPercentage);
             try
             {
+                product.barcode = barcode;
+                product.currentStock = Int32.Parse(currentStock);
+                product.minimumStock = Int32.Parse(minimumStock);
+                product.bundleUnit = Int32.Parse(bundleUnit);
+                product.discountPercentage = float.Parse(discountPercentage);
+            }
+            catch
+            {
+                TempData["message"] = string.Format("Number expected in price and stock fields");
+                return RedirectToAction("List");
+            }
+            if (product.bundleUnit < 0 || product.barcode.Length < 8 || product.currentStock < 0 || product.sellingPrice < 0 || product.sellingPrice > product.maxPrice)
+            {
+                //_productRepo.saveProduct(product);
+                TempData["message"] = string.Format("Invalid data entered");
+                return RedirectToAction("List");
+            }
+            try
+            { 
                 Product hqProduct = new Product();
                 string url = "http://hqserver.azurewebsites.net/shop/getProductDetails?barcode=" + barcode;
                 var request = WebRequest.Create(url);
@@ -451,7 +484,8 @@ namespace LocalServer.WebUI.Controllers
                     return View();
                 }
             }
-            catch {
+            catch
+            {
                 TempData["Result"] = "Invalid barcode";
                 return View();
             }
