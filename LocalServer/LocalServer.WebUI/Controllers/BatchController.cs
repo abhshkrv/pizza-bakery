@@ -57,7 +57,7 @@ namespace LocalServer.WebUI.Controllers
                 {
                     using (var wb = new WebClient())
                     {
-                        string url = "http://localhost:35980/batch/send";
+                        string url = "hqserver.azurewebsites.net/batch/send";
                         var data = new NameValueCollection();
                         data["shopID"] = "1";
                         data["requestID"] = batchRequest.batchRequestID.ToString();
@@ -92,7 +92,7 @@ namespace LocalServer.WebUI.Controllers
             {
                 using (var wb = new WebClient())
                 {
-                    string url = "http://localhost:35980/batch/acknowledge";
+                    string url = "http://hqserver.azurewebsites.net/batch/acknowledge";
                     var data = new NameValueCollection();
                     data["outlet"] = "1";
                     data["requestID"] = batchRequestId;
