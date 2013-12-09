@@ -355,7 +355,7 @@ namespace LocalServer.WebUI.Controllers
         {
             var inventory = _productRepo.Products.ToList();
 
-            var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, minimumStock = p.minimumStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice };
+            var data = from p in inventory select new { barcode = p.barcode, currentStock = p.currentStock, minimumStock = p.minimumStock, discount = p.discountPercentage, sellingPrice = p.sellingPrice,afterUpdateStock = p.afterUpdateStock, temporaryStock=p.temporaryStock };
 
             Dictionary<string, object> output = new Dictionary<string, object>();
             output.Add("ShopID", "1");
