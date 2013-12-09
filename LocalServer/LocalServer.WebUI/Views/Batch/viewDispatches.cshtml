@@ -6,22 +6,20 @@
 
 <table>
     <tr>
-        <th>
-            ID
+        <th>ID
         </th>
-        <th>
-            Time Stamp
+        <th>Time Stamp
         </th>
     </tr>
     @foreach (var item in Model)
     { 
         <tr>
-            <td>
-                <a href="/batch/viewDispatchDetails?batchDispatchID="@item.batchDispatchID">@item.batchDispatchID</a>
-            </td>
-            <td>
-                @item.timeStamp
-            </td>
+            <td><a href="/batch/viewDispatchDetails?batchDispatchID=@item.batchDispatchID">@item.batchDispatchID</a></td>
+           <td> @item.timeStamp</td>
         </tr>
     }
+
+    
+           
+    
 </table>

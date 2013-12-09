@@ -172,15 +172,30 @@ namespace LocalServer.WebUI.Controllers
             JObject raw = JObject.Parse(text);
             JArray productArray = (JArray)raw["Categories"];
 
+            var categories = _categoryRepo.Categories.ToDictionary(c => c.categoryID);
+
             foreach (var p in productArray)
             {
-                Category category = new Category();
-                category.categoryID = (int)p["categoryID"];
+                Category cat = new Category();
+                cat.categoryID = (int)p["categoryID"];
+                cat.categoryName = (string)p["categoryName"];
 
-                category.categoryName = (string)p["categoryName"];
+                if (categories.ContainsKey(cat.categoryID))
+                {
+                    if (cat.categoryName != categories[cat.categoryID].categoryName)
+                    {
+                        var c = categories[cat.categoryID];
+                        c.categoryName = cat.categoryName;
+                        _categoryRepo.quickSaveCategory(c);
+                    }
+
+                }
+                else
+                {
+                    _categoryRepo.quickSaveCategory(cat);
+                }
 
 
-                _categoryRepo.quickSaveCategory(category);
             }
             _categoryRepo.saveContext();
 
@@ -202,19 +217,28 @@ namespace LocalServer.WebUI.Controllers
             }
 
             JObject raw = JObject.Parse(text);
-            JArray productArray = (JArray)raw["Manufacturers"];
+            JArray manArray = (JArray)raw["Manufacturers"];
 
             Dictionary<int, bool> d = new Dictionary<int, bool>();
-
-            foreach (var p in productArray)
+            var manufacturers = _manufacturerRepo.Manufacturers.ToDictionary(m => m.manufacturerID);
+            foreach (var p in manArray)
             {
                 Manufacturer manufacturer = new Manufacturer();
                 manufacturer.manufacturerID = (int)p["manufacturerID"];
                 manufacturer.manufacturerName = (string)p["manufacturerName"];
-                if (!d.ContainsKey(manufacturer.manufacturerID))
+                if (!manufacturers.ContainsKey(manufacturer.manufacturerID))
                 {
-                    d.Add(manufacturer.manufacturerID, true);
+                    //d.Add(manufacturer.manufacturerID, true)
                     _manufacturerRepo.quickSaveManufacturer(manufacturer);
+                }
+                else
+                {
+                    if (manufacturers[manufacturer.manufacturerID].manufacturerName != manufacturer.manufacturerName)
+                    {
+                        var m = manufacturers[manufacturer.manufacturerID];
+                        m.manufacturerName = manufacturer.manufacturerName;
+                        _manufacturerRepo.quickSaveManufacturer(m);
+                    }
                 }
             }
             _manufacturerRepo.saveContext();
@@ -267,7 +291,8 @@ namespace LocalServer.WebUI.Controllers
                 Product product = _productRepo.Products.FirstOrDefault(p => p.productID == productId);
                 return View(product);
             }
-            catch {
+            catch
+            {
                 TempData["message"] = string.Format("Product has been deleted");
                 return RedirectToAction("List");
             }
@@ -350,11 +375,11 @@ namespace LocalServer.WebUI.Controllers
 
             }
 
-           /* return new ContentResult()
-            {
-                Content = serializer.Serialize(output),
-                ContentType = "application/json",
-            }; */
+            /* return new ContentResult()
+             {
+                 Content = serializer.Serialize(output),
+                 ContentType = "application/json",
+             }; */
 
         }
 
@@ -475,7 +500,7 @@ namespace LocalServer.WebUI.Controllers
                 return RedirectToAction("List");
             }
             try
-            { 
+            {
                 Product hqProduct = new Product();
                 string url = "http://hqserver.azurewebsites.net/shop/getProductDetails?barcode=" + barcode;
                 var request = WebRequest.Create(url);

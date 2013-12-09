@@ -269,6 +269,9 @@
     <Content Include="Views\Inventory\RefreshProducts.cshtml" />
     <Content Include="Views\Transaction\HQUpload.cshtml" />
     <Content Include="Views\Inventory\getNewActivePrices.cshtml" />
+    <Content Include="Views\Batch\receiveStock.cshtml" />
+    <Content Include="Views\Batch\viewDispatches.cshtml" />
+    <Content Include="Views\Batch\viewDispatchDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
