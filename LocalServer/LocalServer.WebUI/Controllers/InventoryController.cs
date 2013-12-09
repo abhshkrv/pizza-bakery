@@ -199,7 +199,7 @@ namespace LocalServer.WebUI.Controllers
             }
             _categoryRepo.saveContext();
 
-            return View();
+            return RedirectToAction("List");
         }
 
         public ActionResult SyncManufacturers()
@@ -243,7 +243,7 @@ namespace LocalServer.WebUI.Controllers
             }
             _manufacturerRepo.saveContext();
 
-            return View();
+            return RedirectToAction("List");
         }
 
         public int PageSize = 200;
