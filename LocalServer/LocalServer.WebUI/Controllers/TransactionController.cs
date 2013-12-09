@@ -348,6 +348,7 @@ namespace LocalServer.WebUI.Controllers
                 {
                     var detail = d[item.barcode];
                     detail.quantity += item.qty;
+                    detail.unitPrice += item.price;
                 }
                 else
                 {
