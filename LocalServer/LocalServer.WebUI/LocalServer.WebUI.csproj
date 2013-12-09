@@ -118,6 +118,7 @@
     <Compile Include="Controllers\HardwareController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
@@ -272,6 +273,7 @@
     <Content Include="Views\Batch\receiveStock.cshtml" />
     <Content Include="Views\Batch\viewDispatches.cshtml" />
     <Content Include="Views\Batch\viewDispatchDetails.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

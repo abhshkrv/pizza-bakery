@@ -24,5 +24,6 @@ namespace LocalServer.Domain.Concrete
         public DbSet<Product> Products { get; set; }
         public DbSet<PriceDisplay> PriceDisplays { get; set; }
         public DbSet<CRSession> Sessions { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }
