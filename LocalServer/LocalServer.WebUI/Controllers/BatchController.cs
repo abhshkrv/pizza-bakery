@@ -83,12 +83,31 @@ namespace LocalServer.WebUI.Controllers
 
         public ActionResult Acknowledge(string batchRequestId)
         {
-            BatchRequest br = _batchRequestRepo.BatchRequests.FirstOrDefault(b => b.batchRequestID == Int16.Parse(batchRequestId));
+            int id = Int32.Parse(batchRequestId);
+            BatchRequest br = _batchRequestRepo.BatchRequests.FirstOrDefault(b => b.batchRequestID == id);
             br.status = 1;
             _batchRequestRepo.saveBatchRequest(br);
 
+            try
+            {
+                using (var wb = new WebClient())
+                {
+                    string url = "http://localhost:35980/batch/acknowledge";
+                    var data = new NameValueCollection();
+                    data["outlet"] = "1";
+                    data["requestID"] = batchRequestId;
+                    var response = wb.UploadValues(url, "POST", data);
+                }
+            }
+            catch
+            {
+                TempData["Result"] = "Error : HQ Server Error";
+            }
+
             return RedirectToAction("Index");
         }
+
+
 
         public ActionResult receiveStock()
         {
